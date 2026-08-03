@@ -17,6 +17,23 @@ fadeEls.forEach((el) => observer.observe(el));
 // Footer year
 document.getElementById('year').textContent = new Date().getFullYear();
 
+// Mobile nav toggle (section links dropdown)
+const navToggle = document.getElementById('nav-toggle');
+const mainNav = document.getElementById('main-nav');
+
+if (navToggle && mainNav) {
+  navToggle.addEventListener('click', () => {
+    const isOpen = mainNav.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', String(isOpen));
+  });
+  mainNav.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => {
+      mainNav.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+}
+
 // Cursor spotlight on the dark hero section (mouse-only, respects reduced-motion)
 const heroDark = document.querySelector('.hero-dark');
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
