@@ -13,19 +13,19 @@ fadeEls.forEach((el) => observer.observe(el));
 // Footer year
 document.getElementById('year').textContent = new Date().getFullYear();
 
-// Cursor spotlight on the hero panel (mouse-only, respects reduced-motion)
-const heroPanel = document.querySelector('.hero-panel');
+// Cursor spotlight on the dark hero section (mouse-only, respects reduced-motion)
+const heroDark = document.querySelector('.hero-dark');
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const hasFinePointer = window.matchMedia('(pointer: fine)').matches;
 
-if (heroPanel && !prefersReducedMotion && hasFinePointer) {
-  heroPanel.addEventListener('mousemove', (event) => {
-    const rect = heroPanel.getBoundingClientRect();
-    heroPanel.style.setProperty('--spot-x', `${event.clientX - rect.left}px`);
-    heroPanel.style.setProperty('--spot-y', `${event.clientY - rect.top}px`);
+if (heroDark && !prefersReducedMotion && hasFinePointer) {
+  heroDark.addEventListener('mousemove', (event) => {
+    const rect = heroDark.getBoundingClientRect();
+    heroDark.style.setProperty('--spot-x', `${event.clientX - rect.left}px`);
+    heroDark.style.setProperty('--spot-y', `${event.clientY - rect.top}px`);
   });
-  heroPanel.addEventListener('mouseenter', () => heroPanel.classList.add('spotlight-active'));
-  heroPanel.addEventListener('mouseleave', () => heroPanel.classList.remove('spotlight-active'));
+  heroDark.addEventListener('mouseenter', () => heroDark.classList.add('spotlight-active'));
+  heroDark.addEventListener('mouseleave', () => heroDark.classList.remove('spotlight-active'));
 }
 
 // Contact form: visual-only demo submission.
