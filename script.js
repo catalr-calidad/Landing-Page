@@ -56,6 +56,33 @@ if (servicesTrack && prevArrow && nextArrow) {
   updateArrows();
 }
 
+// Route map (La Transformación): tap/click toggles the tooltip on touch
+// devices, since hover alone doesn't exist there. Desktop still gets the
+// CSS :hover reveal for free; this just adds the tap fallback and closes
+// any other open tooltip so only one shows at a time.
+const routeStops = document.querySelectorAll('.route-stop');
+routeStops.forEach((stop) => {
+  stop.addEventListener('click', () => {
+    const isOpen = stop.classList.contains('show-tip');
+    routeStops.forEach((s) => {
+      s.classList.remove('show-tip');
+      s.setAttribute('aria-expanded', 'false');
+    });
+    if (!isOpen) {
+      stop.classList.add('show-tip');
+      stop.setAttribute('aria-expanded', 'true');
+    }
+  });
+});
+document.addEventListener('click', (event) => {
+  if (!event.target.closest('.route-stop')) {
+    routeStops.forEach((s) => {
+      s.classList.remove('show-tip');
+      s.setAttribute('aria-expanded', 'false');
+    });
+  }
+});
+
 // Contact form: visual-only demo submission.
 // To go live, replace this handler with one of:
 //   - Formspree/Getform: change <form> action + method, remove preventDefault.

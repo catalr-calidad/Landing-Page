@@ -8,14 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=7">
+  <link rel="stylesheet" href="styles.css?v=8">
 </head>
 <body>
 
   <header class="site-header" id="top">
     <div class="container header-inner">
       <a href="#top" class="logo">Catalina López Rodríguez</a>
-      <a href="https://wa.me/573112468627?text=Hola%20Catalina%2C%20quiero%20mi%20diagn%C3%B3stico%20de%20calidad" class="btn btn-primary nav-cta" target="_blank" rel="noopener">Quiero mi diagnóstico</a>
+      <a href="https://wa.me/573112468627?text=Hola%20Catalina%2C%20quiero%20mi%20diagn%C3%B3stico%20de%20calidad" class="btn btn-primary nav-cta" target="_blank" rel="noopener">Contáctanos</a>
     </div>
   </header>
 
@@ -31,7 +31,7 @@
             pacientes y en tu producción. Nosotros nos encargamos del resto.
           </p>
           <div class="hero-actions hero-actions-centered">
-            <a href="https://wa.me/573112468627?text=Hola%20Catalina%2C%20quiero%20mi%20diagn%C3%B3stico%20de%20calidad" class="btn btn-primary" target="_blank" rel="noopener">Quiero mi diagnóstico</a>
+            <a href="https://wa.me/573112468627?text=Hola%20Catalina%2C%20quiero%20mi%20diagn%C3%B3stico%20de%20calidad" class="btn btn-primary" target="_blank" rel="noopener">Contáctanos</a>
             <a href="#pilares" class="btn btn-text btn-text-light">Conoce cómo trabajamos <span aria-hidden="true">→</span></a>
           </div>
         </div>
@@ -49,7 +49,7 @@
             <svg viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </button>
           <div class="services-track" id="services-track">
-          <article class="service-card service-card-gold fade-in">
+          <article class="service-card service-card-frost fade-in">
             <span class="service-number">( 01 )</span>
             <span class="service-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none"><path d="M4 21V9l8-5 8 5v12" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 21v-6h6v6" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg>
@@ -63,7 +63,7 @@
             </span>
             <h3>Habilitación Odontólogos Independientes</h3>
           </article>
-          <article class="service-card service-card-warm fade-in">
+          <article class="service-card service-card-ink fade-in">
             <span class="service-number">( 03 )</span>
             <span class="service-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none"><path d="M9 3h6M10 3v5.5L5.5 17a2 2 0 001.8 3h9.4a2 2 0 001.8-3L14 8.5V3" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg>
@@ -77,14 +77,14 @@
             </span>
             <h3>Habilitación Medicina Estética</h3>
           </article>
-          <article class="service-card service-card-gold fade-in">
+          <article class="service-card service-card-frost fade-in">
             <span class="service-number">( 05 )</span>
             <span class="service-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none"><path d="M12 3l1.8 4.6L18 9l-4.2 1.4L12 15l-1.8-4.6L6 9l4.2-1.4L12 3z" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/><path d="M5 18l1 2.5L8.5 21 6 22l-1 2-1-2-2.5-1L4 18z" stroke="#fff" stroke-width="1.3" stroke-linejoin="round"/></svg>
             </span>
             <h3>Apertura y Funcionamiento Cosmetología Estética</h3>
           </article>
-          <article class="service-card service-card-warm fade-in">
+          <article class="service-card service-card-ink fade-in">
             <span class="service-number">( 06 )</span>
             <span class="service-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none"><path d="M12 4L3 8l9 4 9-4-9-4z" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/><path d="M6 10.5V16c0 1.5 2.7 3 6 3s6-1.5 6-3v-5.5" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg>
@@ -141,36 +141,41 @@
           <p class="lead-paragraph">La calidad deja de ser tu carga y se convierte en nuestra responsabilidad.</p>
         </div>
         <div class="route-map">
-          <div class="route-stop">
+          <button type="button" class="route-stop" aria-expanded="false">
             <span class="route-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none"><circle cx="10.5" cy="10.5" r="6.5" stroke="#fff" stroke-width="1.8"/><path d="M15.5 15.5L20 20" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg>
             </span>
             <span class="route-label">Diagnóstico</span>
-          </div>
-          <div class="route-stop">
+            <span class="route-tooltip" role="tooltip">Analizamos el estado real de tu consultorio o laboratorio frente a la norma.</span>
+          </button>
+          <button type="button" class="route-stop" aria-expanded="false">
             <span class="route-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.5" stroke="#fff" stroke-width="1.8"/><circle cx="12" cy="12" r="4.5" stroke="#fff" stroke-width="1.8"/><circle cx="12" cy="12" r="1" fill="#fff"/></svg>
             </span>
             <span class="route-label">Brechas</span>
-          </div>
-          <div class="route-stop">
+            <span class="route-tooltip" role="tooltip">Identificamos los riesgos críticos que podrían cerrarte las puertas.</span>
+          </button>
+          <button type="button" class="route-stop" aria-expanded="false">
             <span class="route-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3" stroke="#fff" stroke-width="1.8"/><path d="M12 3v3.2M12 17.8V21M4.9 4.9l2.3 2.3M16.8 16.8l2.3 2.3M3 12h3.2M17.8 12H21M4.9 19.1l2.3-2.3M16.8 7.2l2.3-2.3" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg>
             </span>
             <span class="route-label">Sistema</span>
-          </div>
-          <div class="route-stop">
+            <span class="route-tooltip" role="tooltip">Construimos procesos que tu equipo opera sin depender de ti.</span>
+          </button>
+          <button type="button" class="route-stop" aria-expanded="false">
             <span class="route-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </span>
             <span class="route-label">Cumplimiento</span>
-          </div>
-          <div class="route-stop is-result">
+            <span class="route-tooltip" role="tooltip">Cumples la normativa sin detener tu práctica clínica ni tu producción.</span>
+          </button>
+          <button type="button" class="route-stop is-result" aria-expanded="false">
             <span class="route-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none"><path d="M12 20s-7-4.35-7-9.5A4.5 4.5 0 0112 7a4.5 4.5 0 017 3.5C19 15.65 12 20 12 20z" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"/></svg>
             </span>
             <span class="route-label">Confianza</span>
-          </div>
+            <span class="route-tooltip" role="tooltip">Ganas la confianza de tus pacientes y clientes, protegida ante cualquier auditoría.</span>
+          </button>
         </div>
       </div>
     </section>
@@ -291,7 +296,7 @@
           Agenda una conversación con nosotros. En 30 minutos te decimos exactamente dónde está tu mayor riesgo
           y cómo podemos ayudarte a resolverlo.
         </p>
-        <a href="https://wa.me/573112468627?text=Hola%20Catalina%2C%20quiero%20mi%20diagn%C3%B3stico%20de%20calidad" class="btn btn-primary btn-lg" target="_blank" rel="noopener">Quiero mi diagnóstico</a>
+        <a href="https://wa.me/573112468627?text=Hola%20Catalina%2C%20quiero%20mi%20diagn%C3%B3stico%20de%20calidad" class="btn btn-primary btn-lg" target="_blank" rel="noopener">Contáctanos</a>
         <p class="micro-text">Sin compromisos. Sin tecnicismos. Solo claridad.</p>
 
         <div class="contact-form-wrap">
@@ -360,6 +365,6 @@
     </svg>
   </a>
 
-  <script src="script.js?v=7"></script>
+  <script src="script.js?v=8"></script>
 </body>
 </html>
