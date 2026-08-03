@@ -32,6 +32,30 @@ if (heroDark && !prefersReducedMotion && hasFinePointer) {
   heroDark.addEventListener('mouseleave', () => heroDark.classList.remove('spotlight-active'));
 }
 
+// Services carousel: scroll by one "page" (however many cards currently fit)
+const servicesTrack = document.getElementById('services-track');
+const prevArrow = document.querySelector('.carousel-prev');
+const nextArrow = document.querySelector('.carousel-next');
+
+if (servicesTrack && prevArrow && nextArrow) {
+  const updateArrows = () => {
+    const maxScroll = servicesTrack.scrollWidth - servicesTrack.clientWidth;
+    prevArrow.disabled = servicesTrack.scrollLeft <= 4;
+    nextArrow.disabled = servicesTrack.scrollLeft >= maxScroll - 4;
+  };
+
+  prevArrow.addEventListener('click', () => {
+    servicesTrack.scrollBy({ left: -servicesTrack.clientWidth, behavior: 'smooth' });
+  });
+  nextArrow.addEventListener('click', () => {
+    servicesTrack.scrollBy({ left: servicesTrack.clientWidth, behavior: 'smooth' });
+  });
+
+  servicesTrack.addEventListener('scroll', updateArrows);
+  window.addEventListener('resize', updateArrows);
+  updateArrows();
+}
+
 // Contact form: visual-only demo submission.
 // To go live, replace this handler with one of:
 //   - Formspree/Getform: change <form> action + method, remove preventDefault.

@@ -224,15 +224,56 @@ h1, h2, h3, .logo, .footer-name {
   background: #b8790f;
 }
 
-/* SERVICES */
-.services-track {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
+/* SERVICES CAROUSEL */
+.services-carousel {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
+.services-track {
+  flex: 1;
+  display: flex;
+  gap: 24px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  padding: 18px 2px 26px;
+  margin: -18px -2px -26px;
+  scrollbar-width: none;
+}
+.services-track::-webkit-scrollbar { display: none; }
+
+.carousel-arrow {
+  flex: 0 0 auto;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border);
+  background: var(--bg);
+  color: var(--navy);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease, opacity 0.2s ease;
+}
+.carousel-arrow svg { width: 20px; height: 20px; }
+.carousel-arrow:hover:not(:disabled) {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: #fff;
+  transform: scale(1.06);
+}
+.carousel-arrow:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
 .service-card {
   position: relative;
   overflow: hidden;
+  flex: 0 0 calc((100% - 48px) / 3);
+  scroll-snap-align: start;
   border-radius: 18px;
   padding: 30px 26px 34px;
   min-height: 200px;
@@ -298,6 +339,7 @@ h1, h2, h3, .logo, .footer-name {
   font-size: clamp(1.8rem, 3vw, 2.3rem);
   margin: 0 0 18px;
 }
+.section-head .lead-paragraph { margin-top: 22px; }
 .section-head h2::after {
   content: '';
   display: block;
@@ -316,58 +358,74 @@ h1, h2, h3, .logo, .footer-name {
   margin: 0 auto;
 }
 
-/* ROADMAP (plan de trabajo graphic) */
-.roadmap {
-  max-width: 620px;
-  margin: 48px auto 0;
-}
-.roadmap-item {
-  display: grid;
-  grid-template-columns: 40px 1fr;
-  gap: 20px;
+/* ROUTE MAP (mapa de ruta gráfico, La Transformación) */
+.route-map {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+  max-width: 920px;
+  margin: 64px auto 0;
   position: relative;
-  padding-bottom: 34px;
 }
-.roadmap-item:last-child { padding-bottom: 0; }
-.roadmap-item:not(:last-child)::before {
+.route-map::before {
   content: '';
   position: absolute;
-  left: 19px;
-  top: 40px;
-  width: 2px;
-  height: calc(100% - 34px);
-  background: var(--border);
+  top: 36px;
+  left: 6%;
+  right: 6%;
+  height: 2px;
+  background: repeating-linear-gradient(90deg, var(--border) 0 8px, transparent 8px 18px);
+  z-index: 0;
 }
-.roadmap-marker {
-  width: 40px;
-  height: 40px;
+.route-stop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  flex: 1;
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+.route-icon {
+  width: 72px;
+  height: 72px;
   border-radius: 50%;
-  background: var(--navy);
-  color: #fff;
+  background: linear-gradient(145deg, var(--navy-soft), var(--navy));
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: 0 8px 20px rgba(15, 39, 68, 0.2);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.route-stop:hover .route-icon { transform: scale(1.1); }
+.route-stop.is-result .route-icon {
+  background: linear-gradient(145deg, var(--gold), var(--gold-dark));
+  box-shadow: 0 8px 20px rgba(161, 98, 7, 0.3);
+}
+.route-icon svg { width: 30px; height: 30px; }
+.route-label {
   font-family: 'Outfit', sans-serif;
   font-weight: 700;
-  font-size: 0.95rem;
-  position: relative;
-  z-index: 1;
-  transition: transform 0.3s ease;
-}
-.roadmap-item:hover .roadmap-marker { transform: scale(1.1); }
-.roadmap-item.is-result .roadmap-marker {
-  background: var(--gold);
-}
-.roadmap-content { padding-top: 7px; }
-.roadmap-content p {
-  margin: 0;
-  color: var(--ink);
-  font-size: 1.02rem;
-  line-height: 1.5;
-}
-.roadmap-item.is-result .roadmap-content p {
-  font-weight: 600;
+  font-size: 0.98rem;
   color: var(--navy);
+}
+.route-stop.is-result .route-label { color: var(--gold-dark); }
+
+@media (max-width: 700px) {
+  .route-map { flex-direction: column; align-items: center; gap: 36px; margin-top: 48px; }
+  .route-map::before { display: none; }
+  .route-stop:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 72px;
+    left: 50%;
+    width: 2px;
+    height: 36px;
+    transform: translateX(-50%);
+    background: repeating-linear-gradient(180deg, var(--border) 0 6px, transparent 6px 12px);
+  }
 }
 
 /* PAIN CARDS */
@@ -773,7 +831,7 @@ h1, h2, h3, .logo, .footer-name {
   .pain-grid { grid-template-columns: 1fr; }
   .testimonials-grid { grid-template-columns: 1fr; gap: 40px; }
   .pillars-grid { grid-template-columns: 1fr; gap: 20px; }
-  .services-track { grid-template-columns: 1fr 1fr; }
+  .service-card { flex-basis: calc((100% - 24px) / 2); }
   .footer-inner { grid-template-columns: 1fr 1fr; gap: 40px; }
 }
 
@@ -782,7 +840,8 @@ h1, h2, h3, .logo, .footer-name {
   .hero { padding: 88px 0 64px; }
   .logo { font-size: 1rem; }
   .nav-cta { padding: 9px 16px; font-size: 0.8rem; }
-  .services-track { grid-template-columns: 1fr; }
+  .service-card { flex-basis: 84%; }
+  .carousel-arrow { width: 38px; height: 38px; }
   .footer-inner { grid-template-columns: 1fr; gap: 32px; }
   .contact-form-wrap { padding: 26px; }
 }

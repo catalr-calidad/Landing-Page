@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=6">
+  <link rel="stylesheet" href="styles.css?v=7">
 </head>
 <body>
 
@@ -44,7 +44,11 @@
         <div class="section-head">
           <h2>Nuestros Servicios</h2>
         </div>
-        <div class="services-track">
+        <div class="services-carousel">
+          <button class="carousel-arrow carousel-prev" type="button" aria-label="Servicios anteriores" disabled>
+            <svg viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="services-track" id="services-track">
           <article class="service-card service-card-gold fade-in">
             <span class="service-number">( 01 )</span>
             <span class="service-icon" aria-hidden="true">
@@ -87,6 +91,10 @@
             </span>
             <h3>Capacitaciones</h3>
           </article>
+          </div>
+          <button class="carousel-arrow carousel-next" type="button" aria-label="Siguientes servicios">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
         </div>
       </div>
     </section>
@@ -126,34 +134,42 @@
 
     <!-- PROPUESTA DE TRANSFORMACIÓN -->
     <section class="section alt fade-in">
-      <div class="container narrow">
+      <div class="container">
         <div class="section-head">
           <span class="eyebrow">La transformación</span>
           <h2>Menos caos. Más control. Cero interrupciones en tu día.</h2>
+          <p class="lead-paragraph">La calidad deja de ser tu carga y se convierte en nuestra responsabilidad.</p>
         </div>
-        <p class="lead-paragraph">
-          Desde el momento en que empezamos a trabajar juntos, la calidad deja de ser tu carga y se convierte en nuestra responsabilidad.
-        </p>
-        <div class="roadmap">
-          <div class="roadmap-item">
-            <span class="roadmap-marker" aria-hidden="true">1</span>
-            <div class="roadmap-content"><p>Mapeamos tu realidad actual, sin tecnicismos.</p></div>
+        <div class="route-map">
+          <div class="route-stop">
+            <span class="route-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><circle cx="10.5" cy="10.5" r="6.5" stroke="#fff" stroke-width="1.8"/><path d="M15.5 15.5L20 20" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg>
+            </span>
+            <span class="route-label">Diagnóstico</span>
           </div>
-          <div class="roadmap-item">
-            <span class="roadmap-marker" aria-hidden="true">2</span>
-            <div class="roadmap-content"><p>Identificamos las brechas críticas frente a la norma.</p></div>
+          <div class="route-stop">
+            <span class="route-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.5" stroke="#fff" stroke-width="1.8"/><circle cx="12" cy="12" r="4.5" stroke="#fff" stroke-width="1.8"/><circle cx="12" cy="12" r="1" fill="#fff"/></svg>
+            </span>
+            <span class="route-label">Brechas</span>
           </div>
-          <div class="roadmap-item">
-            <span class="roadmap-marker" aria-hidden="true">3</span>
-            <div class="roadmap-content"><p>Construimos un sistema que tu equipo opera sin depender de ti.</p></div>
+          <div class="route-stop">
+            <span class="route-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3" stroke="#fff" stroke-width="1.8"/><path d="M12 3v3.2M12 17.8V21M4.9 4.9l2.3 2.3M16.8 16.8l2.3 2.3M3 12h3.2M17.8 12H21M4.9 19.1l2.3-2.3M16.8 7.2l2.3-2.3" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg>
+            </span>
+            <span class="route-label">Sistema</span>
           </div>
-          <div class="roadmap-item">
-            <span class="roadmap-marker" aria-hidden="true">4</span>
-            <div class="roadmap-content"><p>Cumples la normativa sin detener tu práctica clínica ni tu producción.</p></div>
+          <div class="route-stop">
+            <span class="route-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <span class="route-label">Cumplimiento</span>
           </div>
-          <div class="roadmap-item is-result">
-            <span class="roadmap-marker" aria-hidden="true">5</span>
-            <div class="roadmap-content"><p>Ganas la confianza de tus pacientes y clientes, protegida ante cualquier auditoría.</p></div>
+          <div class="route-stop is-result">
+            <span class="route-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M12 20s-7-4.35-7-9.5A4.5 4.5 0 0112 7a4.5 4.5 0 017 3.5C19 15.65 12 20 12 20z" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"/></svg>
+            </span>
+            <span class="route-label">Confianza</span>
           </div>
         </div>
       </div>
@@ -344,6 +360,6 @@
     </svg>
   </a>
 
-  <script src="script.js?v=6"></script>
+  <script src="script.js?v=7"></script>
 </body>
 </html>
