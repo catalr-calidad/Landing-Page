@@ -1,4 +1,8 @@
-// Fade-in on scroll
+// Fade-in on scroll.
+// threshold: 0 + a negative bottom rootMargin means "reveal as soon as the
+// element starts entering the viewport" instead of waiting for 15% of its
+// full height to be visible — that previous setting left tall sections
+// (Servicios, El riesgo) blank for a noticeable stretch while scrolling.
 const fadeEls = document.querySelectorAll('.fade-in');
 const observer = new IntersectionObserver((entries) => {
   entries.forEach((entry) => {
@@ -7,7 +11,7 @@ const observer = new IntersectionObserver((entries) => {
       observer.unobserve(entry.target);
     }
   });
-}, { threshold: 0.15 });
+}, { threshold: 0, rootMargin: '0px 0px -10% 0px' });
 fadeEls.forEach((el) => observer.observe(el));
 
 // Footer year
