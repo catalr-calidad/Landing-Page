@@ -234,6 +234,24 @@ h1, h2, h3, .logo, .footer-name {
   max-width: 220px;
 }
 
+/* Cursor spotlight (mouse-only, added via script.js) */
+.hero-panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  background: radial-gradient(
+    220px circle at var(--spot-x, 50%) var(--spot-y, 50%),
+    rgba(255, 255, 255, 0.16),
+    transparent 70%
+  );
+}
+.hero-panel.spotlight-active::before {
+  opacity: 1;
+}
+
 /* SECTIONS */
 .section { padding: 120px 0; }
 .section.alt { background: var(--bg-cream); }
