@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=13">
+  <link rel="stylesheet" href="styles.css?v=14">
 </head>
 <body>
 
@@ -224,15 +224,23 @@
       </div>
     </section>
 
-    <!-- BANDA EDITORIAL DE IMAGEN -->
-    <section class="image-band fade-in">
+    <!-- BANDA EDITORIAL: SELLO DE CALIDAD -->
+    <section class="seal-band fade-in">
       <!--
-        REEMPLAZA ESTE BLOQUE por una foto panorámica real cuando la tengas:
-        <img src="images/banda-editorial.jpg" alt="Equipo trabajando con orden y calidad en el consultorio">
-        Sugerencia de búsqueda: "dental team professional minimal", "medical office clean workspace"
+        Si más adelante consigues una foto que te guste, puedes reemplazar
+        este bloque por <img> — el diseño de abajo es una alternativa
+        100% en código, sin depender de fotografía externa.
       -->
-      <div class="image-band-placeholder" aria-hidden="true">
-        <span>Espacio reservado para fotografía editorial de alta calidad</span>
+      <div class="seal-band-inner">
+        <div class="seal" aria-hidden="true">
+          <svg viewBox="0 0 200 200" fill="none">
+            <circle cx="100" cy="100" r="92" stroke="var(--navy)" stroke-width="1.2" stroke-dasharray="2 6"/>
+            <circle cx="100" cy="100" r="74" stroke="var(--navy)" stroke-width="1.2"/>
+            <circle cx="100" cy="100" r="58" stroke="var(--slate-light)" stroke-width="1"/>
+            <path d="M76 101l16 16 34-38" stroke="var(--navy)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <p class="seal-caption">Comprometidos con la calidad en cada detalle</p>
       </div>
     </section>
 
@@ -364,6 +372,6 @@
     </svg>
   </a>
 
-  <script src="script.js?v=13"></script>
+  <script src="script.js?v=14"></script>
 </body>
 </html>
