@@ -114,9 +114,13 @@ if (holoCheck) {
     const t = i / (LAYERS - 1);            // 0 = back, ~1 = just behind front
     const layer = base.cloneNode(true);
     layer.style.transform = `translateZ(${(-DEPTH + t * DEPTH).toFixed(2)}px)`;
-    layer.style.opacity = (0.16 + t * 0.5).toFixed(2);
-    // hue drifts blue -> cyan toward the front so the edge looks refractive
-    layer.style.color = `hsl(${(200 - t * 14).toFixed(0)} 92% ${(52 + t * 20).toFixed(0)}%)`;
+    // On the light ground the depth has to be DARKER than the face, not
+    // brighter, or the extrusion disappears into the cream. Back slices are
+    // deep violet-navy, drifting to a vivid blue just behind the front face.
+    layer.style.opacity = '1';
+    const hue = 252 - t * 34;                              // 252 violet -> 218 blue
+    const light = 26 + t * 16;                             // 26% -> 42%
+    layer.style.color = `hsl(${hue.toFixed(0)} ${(64 + t * 18).toFixed(0)}% ${light.toFixed(0)}%)`;
     frag.appendChild(layer);
   }
   holoCheck.insertBefore(frag, base);

@@ -882,16 +882,15 @@ h1, h2, h3, .logo, .footer-name {
   margin: 0;
 }
 
-/* SEAL BAND — dark stage so the holographic mark can actually glow.
-   A cyan hologram on the cream background washed out completely. */
+/* SEAL BAND — back on the light cream ground, with the mark carrying the
+   colour instead of the background. */
 .seal-band {
   position: relative;
   overflow: hidden;
   padding: 110px 0 100px;
-  background:
-    radial-gradient(circle at 50% 42%, #0d2740 0%, #07111d 45%, #04080f 100%);
-  border-top: 1px solid rgba(103, 232, 249, 0.16);
-  border-bottom: 1px solid rgba(103, 232, 249, 0.16);
+  background: var(--bg-cream);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
 }
 .seal-band-inner {
   position: relative;
@@ -899,30 +898,31 @@ h1, h2, h3, .logo, .footer-name {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 46px;
+  gap: 52px;
 }
 
-/* --- Holographic quality check --- */
+/* --- 3D quality check with orbiting rings --- */
 .seal-scene {
   position: relative;
-  width: 260px;
-  height: 260px;
+  width: 270px;
+  height: 270px;
   perspective: 1000px;
 }
-/* Ambient bloom behind the projection */
+/* Soft colour wash behind the mark — keeps it from floating unanchored on
+   the flat cream without darkening the section. */
 .seal-scene::before {
   content: '';
   position: absolute;
-  inset: -26%;
+  inset: -22%;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(34, 211, 238, 0.3), rgba(34, 211, 238, 0.07) 45%, transparent 70%);
-  filter: blur(16px);
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.16), rgba(8, 145, 178, 0.07) 48%, transparent 70%);
+  filter: blur(14px);
   pointer-events: none;
-  animation: holo-bloom 5.5s ease-in-out infinite;
+  animation: seal-bloom 6s ease-in-out infinite;
 }
-@keyframes holo-bloom {
-  0%, 100% { opacity: 0.7; transform: scale(0.96); }
-  50%      { opacity: 1;   transform: scale(1.04); }
+@keyframes seal-bloom {
+  0%, 100% { opacity: 0.75; transform: scale(0.96); }
+  50%      { opacity: 1;    transform: scale(1.05); }
 }
 
 .seal-tilt {
@@ -936,64 +936,34 @@ h1, h2, h3, .logo, .footer-name {
   position: absolute;
   inset: 0;
   transform-style: preserve-3d;
-  animation: holo-swing 11s ease-in-out infinite;
+  /* Gentle sway only — the full 360 lives on the rings, so the check stays
+     legible instead of turning edge-on. */
+  animation: check-sway 8s ease-in-out infinite;
 }
-/* Swings instead of spinning so the check never turns edge-on */
-@keyframes holo-swing {
-  0%, 100% { transform: rotateY(-30deg) rotateX(8deg); }
-  50%      { transform: rotateY(30deg) rotateX(-4deg); }
-}
-
-/* Containing ring — translucent glass edge, lit from within */
-.holo-ring {
-  position: absolute;
-  inset: 4%;
-  border-radius: 50%;
-  border: 5px solid rgba(103, 232, 249, 0.85);
-  background: radial-gradient(circle, rgba(34, 211, 238, 0.13) 0%, rgba(34, 211, 238, 0.04) 62%, transparent 72%);
-  box-shadow:
-    0 0 22px rgba(34, 211, 238, 0.6),
-    inset 0 0 26px rgba(34, 211, 238, 0.45);
-  transform: translateZ(0);
-}
-/* Second ring set back in Z — reads as the far side of the projection */
-.holo-ring-back {
-  inset: 11%;
-  border-width: 2px;
-  border-color: rgba(103, 232, 249, 0.4);
-  background: none;
-  box-shadow: 0 0 14px rgba(34, 211, 238, 0.3);
-  transform: translateZ(-34px);
+@keyframes check-sway {
+  0%, 100% { transform: rotateY(-13deg) rotateX(7deg); }
+  50%      { transform: rotateY(13deg) rotateX(-3deg); }
 }
 
-/* Node mesh */
-.holo-net {
+/* Orbit rings — each completes a full 360 on its own axis */
+.orbit {
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
-  transform: translateZ(-12px);
-  overflow: visible;
+  transform-style: preserve-3d;
 }
-.holo-net-lines path {
-  stroke: rgba(103, 232, 249, 0.42);
-  stroke-width: 1;
-  fill: none;
+.orbit svg { width: 100%; height: 100%; overflow: visible; }
+.orbit-x { animation: orbit-spin-x 7s linear infinite; }
+.orbit-y { animation: orbit-spin-y 9s linear infinite reverse; }
+@keyframes orbit-spin-x {
+  from { transform: rotateX(14deg) rotateY(0deg); }
+  to   { transform: rotateX(14deg) rotateY(360deg); }
 }
-.holo-net-dots circle {
-  fill: #a5f3fc;
-  filter: drop-shadow(0 0 4px rgba(34, 211, 238, 0.95));
-  animation: holo-twinkle 3.4s ease-in-out infinite;
-}
-.holo-net-dots circle:nth-child(3n)   { animation-delay: 0.7s; }
-.holo-net-dots circle:nth-child(3n+1) { animation-delay: 1.5s; }
-.holo-net-dots circle:nth-child(4n)   { animation-delay: 2.2s; }
-@keyframes holo-twinkle {
-  0%, 100% { opacity: 0.45; }
-  50%      { opacity: 1; }
+@keyframes orbit-spin-y {
+  from { transform: rotateY(-22deg) rotateX(0deg); }
+  to   { transform: rotateY(-22deg) rotateX(360deg); }
 }
 
-/* The check itself — script.js stacks copies along Z to extrude it */
+/* The check — script.js stacks copies along Z to give it real thickness */
 .holo-check {
   position: absolute;
   inset: 0;
@@ -1004,23 +974,34 @@ h1, h2, h3, .logo, .footer-name {
   inset: 0;
   width: 100%;
   height: 100%;
-  color: #67e8f9;
+  color: #1d4ed8;
 }
-/* Front-most copy: white core with a strong bloom, like the reference */
 .holo-check-svg.is-front {
-  color: #ffffff;
-  filter: drop-shadow(0 0 10px rgba(165, 243, 252, 0.95))
-          drop-shadow(0 0 26px rgba(34, 211, 238, 0.75));
+  filter: drop-shadow(0 4px 10px rgba(29, 78, 216, 0.4));
+}
+
+/* Contact shadow so the mark sits on the page rather than hovering flat */
+.seal-ground {
+  position: absolute;
+  left: 50%;
+  bottom: -22px;
+  width: 150px;
+  height: 22px;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(15, 39, 68, 0.26), transparent 70%);
+  filter: blur(8px);
 }
 
 .seal-paused .holo,
-.seal-paused .seal-scene::before,
-.seal-paused .holo-net-dots circle { animation-play-state: paused; }
+.seal-paused .orbit,
+.seal-paused .seal-scene::before { animation-play-state: paused; }
 
 @media (prefers-reduced-motion: reduce) {
-  .holo { animation: none; transform: rotateY(-16deg) rotateX(6deg); }
+  .holo { animation: none; transform: rotateY(-12deg) rotateX(6deg); }
+  .orbit-x { animation: none; transform: rotateX(14deg) rotateY(28deg); }
+  .orbit-y { animation: none; transform: rotateY(-22deg) rotateX(64deg); }
   .seal-scene::before { animation: none; }
-  .holo-net-dots circle { animation: none; opacity: 0.85; }
   .seal-tilt { transition: none; }
 }
 
@@ -1028,11 +1009,10 @@ h1, h2, h3, .logo, .footer-name {
   font-family: 'Outfit', sans-serif;
   font-weight: 600;
   font-size: 1.05rem;
-  color: #cffafe;
+  color: var(--navy);
   letter-spacing: 0.03em;
   text-align: center;
   margin: 0;
-  text-shadow: 0 0 18px rgba(34, 211, 238, 0.45);
 }
 
 /* VISION */
