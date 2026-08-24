@@ -14,6 +14,37 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0, rootMargin: '0px 0px -10% 0px' });
 fadeEls.forEach((el) => observer.observe(el));
 
+// Staggered reveals: sections marked .stagger reveal their direct children
+// one after another instead of all at once. Capped at 8 steps — past that the
+// last item feels laggy rather than choreographed.
+const staggerGroups = document.querySelectorAll('.stagger');
+const staggerObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (!entry.isIntersecting) return;
+    entry.target.classList.add('stagger-active');
+    const items = entry.target.querySelectorAll(':scope > *');
+    items.forEach((item, i) => {
+      item.style.transitionDelay = `${Math.min(i, 8) * 90}ms`;
+      item.classList.add('lift-in');
+    });
+    staggerObserver.unobserve(entry.target);
+  });
+}, { threshold: 0, rootMargin: '0px 0px -12% 0px' });
+staggerGroups.forEach((el) => staggerObserver.observe(el));
+
+// Scroll progress bar
+const progressBar = document.getElementById('scroll-progress');
+if (progressBar) {
+  const updateProgress = () => {
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = max > 0 ? (window.scrollY / max) * 100 : 0;
+    progressBar.style.width = `${pct}%`;
+  };
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  window.addEventListener('resize', updateProgress);
+  updateProgress();
+}
+
 // Footer year
 document.getElementById('year').textContent = new Date().getFullYear();
 
@@ -47,6 +78,58 @@ if (heroDark && !prefersReducedMotion && hasFinePointer) {
   });
   heroDark.addEventListener('mouseenter', () => heroDark.classList.add('spotlight-active'));
   heroDark.addEventListener('mouseleave', () => heroDark.classList.remove('spotlight-active'));
+}
+
+// 3D seal: tilt toward the cursor. The CSS keyframe spin lives on an inner
+// element so this tilt transform on the wrapper doesn't fight the animation.
+const sealScene = document.getElementById('seal-scene');
+if (sealScene && !prefersReducedMotion && hasFinePointer) {
+  const sealBand = sealScene.closest('.seal-band') || sealScene;
+  sealBand.addEventListener('mousemove', (event) => {
+    const rect = sealScene.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    const dx = (event.clientX - cx) / rect.width;
+    const dy = (event.clientY - cy) / rect.height;
+    const clamp = (v) => Math.max(-1, Math.min(1, v));
+    sealScene.style.setProperty('--tilt-y', `${clamp(dx) * 22}deg`);
+    sealScene.style.setProperty('--tilt-x', `${clamp(-dy) * 18}deg`);
+  });
+  sealBand.addEventListener('mouseleave', () => {
+    sealScene.style.setProperty('--tilt-y', '0deg');
+    sealScene.style.setProperty('--tilt-x', '0deg');
+  });
+}
+
+// Pause the seal's continuous 3D rotation while it's off-screen so it isn't
+// burning GPU/battery for something nobody is looking at.
+if (sealScene) {
+  const sealVisibility = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      sealScene.classList.toggle('seal-paused', !entry.isIntersecting);
+    });
+  }, { threshold: 0 });
+  sealVisibility.observe(sealScene);
+}
+
+// Hero decorative orbs: slow scroll drift (decorative layers only — never the
+// copy itself, which would hurt reading comfort).
+const heroOrbs = document.querySelectorAll('.hero-orb');
+if (heroOrbs.length && !prefersReducedMotion) {
+  let ticking = false;
+  const driftOrbs = () => {
+    const y = window.scrollY;
+    heroOrbs.forEach((orb, i) => {
+      orb.style.setProperty('--drift', `${y * (0.06 + i * 0.04)}px`);
+    });
+    ticking = false;
+  };
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      ticking = true;
+      window.requestAnimationFrame(driftOrbs);
+    }
+  }, { passive: true });
 }
 
 // Services carousel: scroll by one "page" (however many cards currently fit)
