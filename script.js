@@ -101,32 +101,46 @@ if (sealScene && !prefersReducedMotion && hasFinePointer) {
   });
 }
 
-// Extrude the holographic check: stack copies of the same SVG along Z. CSS
-// can't extrude a path, so the depth you see when it swings is these layers —
-// dim cyan at the back fading up to a white, blooming front face.
-const holoCheck = document.getElementById('holo-check');
-if (holoCheck) {
-  const base = holoCheck.querySelector('.holo-check-svg');
-  const LAYERS = 16;
-  const DEPTH = 30; // total thickness in px
+// Extrude the ring and the check. CSS can't extrude a path, so the depth you
+// see as the assembly turns is these stacked copies. Because the whole thing
+// completes a full 360, both parts need real thickness — otherwise each one
+// collapses to a line every half turn.
+function extrude(hostId, selector, opts) {
+  const host = document.getElementById(hostId);
+  if (!host) return;
+  const base = host.querySelector(selector);
   const frag = document.createDocumentFragment();
-  for (let i = 0; i < LAYERS - 1; i++) {
-    const t = i / (LAYERS - 1);            // 0 = back, ~1 = just behind front
+  for (let i = 0; i < opts.layers - 1; i++) {
+    const t = i / (opts.layers - 1);        // 0 = back, ~1 = just behind front
     const layer = base.cloneNode(true);
-    layer.style.transform = `translateZ(${(-DEPTH + t * DEPTH).toFixed(2)}px)`;
-    // On the light ground the depth has to be DARKER than the face, not
-    // brighter, or the extrusion disappears into the cream. Back slices are
-    // deep violet-navy, drifting to a vivid blue just behind the front face.
-    layer.style.opacity = '1';
-    const hue = 252 - t * 34;                              // 252 violet -> 218 blue
-    const light = 26 + t * 16;                             // 26% -> 42%
-    layer.style.color = `hsl(${hue.toFixed(0)} ${(64 + t * 18).toFixed(0)}% ${light.toFixed(0)}%)`;
+    layer.style.transform = `translateZ(${(-opts.depth + t * 2 * opts.depth).toFixed(2)}px)`;
+    // Shading is symmetric: both faces are light and the middle of the stack
+    // is dark. That way the body looks equally finished through the whole 360
+    // instead of turning into a dull silhouette on the back half. On this light
+    // ground the mid-stack must be DARKER than the faces, or the extrusion
+    // washes out into the cream instead of reading as depth.
+    const edge = Math.abs(2 * t - 1);        // 1 at both faces, 0 mid-stack
+    const light = opts.lightMid + edge * (opts.lightFace - opts.lightMid);
+    const hue = opts.hueMid + edge * (opts.hueFace - opts.hueMid);
+    layer.style.color = `hsl(${hue.toFixed(0)} ${opts.sat}% ${light.toFixed(0)}%)`;
     frag.appendChild(layer);
   }
-  holoCheck.insertBefore(frag, base);
+  host.insertBefore(frag, base);
   base.classList.add('is-front');
-  base.style.transform = 'translateZ(0px)';
+  base.style.transform = `translateZ(${opts.depth}px)`;
 }
+
+// Layer counts are set so the Z spacing stays near ~1px. Any sparser and the
+// stack reads as separate slices ("comb" banding) when the body turns edge-on
+// rather than as one solid volume.
+extrude('ring3d', '.ring-layer', {
+  layers: 26, depth: 15, sat: 70,
+  hueFace: 232, hueMid: 258, lightFace: 46, lightMid: 24
+});
+extrude('holo-check', '.holo-check-svg', {
+  layers: 30, depth: 16, sat: 72,
+  hueFace: 220, hueMid: 252, lightFace: 44, lightMid: 22
+});
 
 // Pause the seal's continuous 3D rotation while it's off-screen so it isn't
 // burning GPU/battery for something nobody is looking at.
