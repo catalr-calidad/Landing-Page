@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=33">
+  <link rel="stylesheet" href="styles.css?v=35">
   <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
@@ -270,24 +270,47 @@
       <div class="container seal-band-inner">
         <div class="emblem-wrap" id="emblem-wrap">
           <div class="emblem-tilt">
-            <svg class="emblem" viewBox="0 0 220 220" fill="none" aria-hidden="true">
-              <!-- Outer hairline ring, drawn on entry -->
-              <circle class="emblem-ring" cx="110" cy="110" r="104"
-                      stroke="var(--navy)" stroke-width="1.5"/>
-              <!-- Tick marks: the machined-bezel detail that reads as a seal -->
-              <g class="emblem-ticks" stroke="var(--slate-light)" stroke-width="2" stroke-linecap="round">
-                <path d="M110 12v9M110 199v9M12 110h9M199 110h9"/>
-                <path d="M40.6 40.6l6.4 6.4M173 173l6.4 6.4M179.4 40.6l-6.4 6.4M47 173l-6.4 6.4"/>
+            <svg class="emblem" viewBox="0 0 240 240" fill="none" aria-hidden="true">
+              <defs>
+                <!-- Baseline for the circular lockup type -->
+                <path id="emblemTypePath"
+                      d="M120 120 m -97 0 a 97 97 0 1 1 194 0 a 97 97 0 1 1 -194 0"/>
+              </defs>
+
+              <!-- Hairline that closes the composition -->
+              <circle class="emblem-ring" cx="120" cy="120" r="117"
+                      stroke="var(--slate-light)" stroke-width="0.75"/>
+
+              <!-- Circular type: the detail that separates a real hallmark
+                   from a generic success icon -->
+              <g class="emblem-type-ring">
+                <text class="emblem-type">
+                  <textPath href="#emblemTypePath" startOffset="0%">
+                    CALIDAD · CUMPLIMIENTO · CONFIANZA ·
+                  </textPath>
+                </text>
               </g>
-              <!-- Solid navy disc -->
-              <circle class="emblem-disc" cx="110" cy="110" r="82" fill="var(--navy)"/>
-              <!-- Inner hairline, knocked out of the disc -->
-              <circle class="emblem-inner" cx="110" cy="110" r="70"
-                      stroke="rgba(255,255,255,0.22)" stroke-width="1"/>
-              <!-- The check, stroked on -->
-              <path class="emblem-check" d="M78 111 L100 133 L145 86"
-                    stroke="#fff" stroke-width="9"
-                    stroke-linecap="round" stroke-linejoin="round"/>
+
+              <!-- Machined bezel: one dashed stroke reads as many fine ticks -->
+              <circle class="emblem-bezel" cx="120" cy="120" r="87"
+                      stroke="var(--slate)" stroke-width="4.5"
+                      stroke-dasharray="0.9 5.4" stroke-linecap="round"/>
+
+              <!-- Body -->
+              <circle class="emblem-disc" cx="120" cy="120" r="77" fill="var(--navy)"/>
+
+              <!-- Guilloché: concentric hairlines give the face material depth -->
+              <g class="emblem-guilloche" stroke="#fff">
+                <circle cx="120" cy="120" r="70" stroke-opacity="0.34" stroke-width="0.9"/>
+                <circle cx="120" cy="120" r="65" stroke-opacity="0.18" stroke-width="0.6"/>
+                <circle cx="120" cy="120" r="59" stroke-opacity="0.1" stroke-width="0.6"/>
+              </g>
+
+              <!-- Check drawn as a filled figure, not a uniform icon stroke:
+                   the short arm is lighter than the long one and both
+                   terminals are cut on the diagonal. -->
+              <path class="emblem-check" fill="#fff"
+                    d="M88 118 L108 138 L151 85 L161 93 L109 159 L79 127 Z"/>
             </svg>
           </div>
         </div>
@@ -431,6 +454,6 @@
     </svg>
   </a>
 
-  <script src="script.js?v=33"></script>
+  <script src="script.js?v=35"></script>
 </body>
 </html>
