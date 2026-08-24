@@ -115,8 +115,12 @@ if (medal) {
     const slice = document.createElement('span');
     slice.className = 'medal-slice';
     slice.style.transform = `translateZ(${z.toFixed(2)}px)`;
-    const light = 14 + t * 16;               // 14% → 30% lightness
-    slice.style.background = `hsl(211 55% ${light}%)`;
+    // Hue shifts violet -> cyan and brightens toward the front, so the rim
+    // catches an iridescent gradient instead of reading as one flat colour.
+    const hue = 258 - t * 68;                // 258 (violet) -> 190 (cyan)
+    const light = 16 + t * 26;               // 16% -> 42%
+    const sat = 62 + t * 24;                 // 62% -> 86%
+    slice.style.background = `hsl(${hue.toFixed(0)} ${sat.toFixed(0)}% ${light.toFixed(0)}%)`;
     frag.appendChild(slice);
   }
   medal.insertBefore(frag, medal.firstChild);
@@ -158,11 +162,41 @@ const servicesTrack = document.getElementById('services-track');
 const prevArrow = document.querySelector('.carousel-prev');
 const nextArrow = document.querySelector('.carousel-next');
 
+const dotsWrap = document.getElementById('carousel-dots');
+
 if (servicesTrack && prevArrow && nextArrow) {
-  const updateArrows = () => {
+  // Page count depends on how many cards fit at the current breakpoint, so
+  // the dots are rebuilt on resize rather than hardcoded.
+  let pageCount = 1;
+
+  const buildDots = () => {
+    if (!dotsWrap) return;
+    pageCount = Math.max(1, Math.round(servicesTrack.scrollWidth / servicesTrack.clientWidth));
+    dotsWrap.innerHTML = '';
+    for (let i = 0; i < pageCount; i++) {
+      const dot = document.createElement('button');
+      dot.type = 'button';
+      dot.className = 'carousel-dot';
+      dot.setAttribute('role', 'tab');
+      dot.setAttribute('aria-label', `Ir al grupo ${i + 1} de ${pageCount}`);
+      dot.addEventListener('click', () => {
+        servicesTrack.scrollTo({ left: i * servicesTrack.clientWidth, behavior: 'smooth' });
+      });
+      dotsWrap.appendChild(dot);
+    }
+  };
+
+  const updateUI = () => {
     const maxScroll = servicesTrack.scrollWidth - servicesTrack.clientWidth;
     prevArrow.disabled = servicesTrack.scrollLeft <= 4;
     nextArrow.disabled = servicesTrack.scrollLeft >= maxScroll - 4;
+    if (!dotsWrap) return;
+    const current = Math.round(servicesTrack.scrollLeft / servicesTrack.clientWidth);
+    [...dotsWrap.children].forEach((dot, i) => {
+      const active = i === current;
+      dot.classList.toggle('is-active', active);
+      dot.setAttribute('aria-selected', String(active));
+    });
   };
 
   prevArrow.addEventListener('click', () => {
@@ -172,9 +206,10 @@ if (servicesTrack && prevArrow && nextArrow) {
     servicesTrack.scrollBy({ left: servicesTrack.clientWidth, behavior: 'smooth' });
   });
 
-  servicesTrack.addEventListener('scroll', updateArrows);
-  window.addEventListener('resize', updateArrows);
-  updateArrows();
+  servicesTrack.addEventListener('scroll', updateUI, { passive: true });
+  window.addEventListener('resize', () => { buildDots(); updateUI(); });
+  buildDots();
+  updateUI();
 }
 
 // Route map (La Transformación): tap/click toggles the tooltip on touch
