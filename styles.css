@@ -882,27 +882,49 @@ h1, h2, h3, .logo, .footer-name {
   margin: 0;
 }
 
-/* SEAL BAND (abstract quality mark, no external photo needed) */
+/* SEAL BAND — dark stage so the holographic mark can actually glow.
+   A cyan hologram on the cream background washed out completely. */
 .seal-band {
-  padding: 90px 0;
-  background: var(--bg-cream);
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+  padding: 110px 0 100px;
+  background:
+    radial-gradient(circle at 50% 42%, #0d2740 0%, #07111d 45%, #04080f 100%);
+  border-top: 1px solid rgba(103, 232, 249, 0.16);
+  border-bottom: 1px solid rgba(103, 232, 249, 0.16);
 }
 .seal-band-inner {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* extra gap clears the medal's contact shadow, which overhangs the scene */
-  gap: 56px;
+  gap: 46px;
 }
-/* --- 3D quality medal (extruded disc with an embossed check) --- */
+
+/* --- Holographic quality check --- */
 .seal-scene {
   position: relative;
-  width: 220px;
-  height: 220px;
-  perspective: 1100px;
+  width: 260px;
+  height: 260px;
+  perspective: 1000px;
 }
+/* Ambient bloom behind the projection */
+.seal-scene::before {
+  content: '';
+  position: absolute;
+  inset: -26%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(34, 211, 238, 0.3), rgba(34, 211, 238, 0.07) 45%, transparent 70%);
+  filter: blur(16px);
+  pointer-events: none;
+  animation: holo-bloom 5.5s ease-in-out infinite;
+}
+@keyframes holo-bloom {
+  0%, 100% { opacity: 0.7; transform: scale(0.96); }
+  50%      { opacity: 1;   transform: scale(1.04); }
+}
+
 .seal-tilt {
   position: absolute;
   inset: 0;
@@ -910,121 +932,107 @@ h1, h2, h3, .logo, .footer-name {
   transform: rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
   transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.medal {
+.holo {
   position: absolute;
   inset: 0;
   transform-style: preserve-3d;
-  animation: medal-swing 9s ease-in-out infinite;
+  animation: holo-swing 11s ease-in-out infinite;
 }
-/* Swings rather than fully spinning: at the extremes you read the disc's
-   thickness, but the check never turns away from the viewer. */
-@keyframes medal-swing {
-  0%, 100% { transform: rotateY(-44deg) rotateX(9deg); }
-  50%      { transform: rotateY(44deg) rotateX(-5deg); }
-}
-
-/* Extrusion body — .medal-slice elements are injected by script.js and
-   spaced along Z so the disc reads as a solid object, not a flat circle. */
-.medal-slice {
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  background: #0b1b2e;
+/* Swings instead of spinning so the check never turns edge-on */
+@keyframes holo-swing {
+  0%, 100% { transform: rotateY(-30deg) rotateX(8deg); }
+  50%      { transform: rotateY(30deg) rotateX(-4deg); }
 }
 
-.medal-face {
+/* Containing ring — translucent glass edge, lit from within */
+.holo-ring {
   position: absolute;
-  inset: 0;
+  inset: 4%;
   border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  backface-visibility: hidden;
-}
-.medal-front {
-  transform: translateZ(15px);
-  overflow: hidden;
-  background:
-    radial-gradient(120% 120% at 24% 18%, #5eead4 0%, #22d3ee 16%, #3b82f6 40%, #4338ca 68%, #1e1b4b 100%);
+  border: 5px solid rgba(103, 232, 249, 0.85);
+  background: radial-gradient(circle, rgba(34, 211, 238, 0.13) 0%, rgba(34, 211, 238, 0.04) 62%, transparent 72%);
   box-shadow:
-    inset 0 0 0 2px rgba(255, 255, 255, 0.3),
-    inset 0 -16px 34px rgba(10, 6, 40, 0.5),
-    0 0 34px rgba(56, 189, 248, 0.45);
+    0 0 22px rgba(34, 211, 238, 0.6),
+    inset 0 0 26px rgba(34, 211, 238, 0.45);
+  transform: translateZ(0);
 }
-/* Specular sheen sweeping across the face — the highlight that makes the
-   surface read as polished rather than matte. */
-.medal-front::after {
-  content: '';
-  position: absolute;
-  top: -60%;
-  left: -70%;
-  width: 60%;
-  height: 220%;
-  background: linear-gradient(
-    100deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.55) 45%,
-    rgba(255, 255, 255, 0.85) 50%,
-    rgba(255, 255, 255, 0.55) 55%,
-    transparent 100%
-  );
-  filter: blur(6px);
-  animation: medal-sheen 6s ease-in-out infinite;
-  pointer-events: none;
-}
-@keyframes medal-sheen {
-  0%, 62%, 100% { transform: translateX(0) rotate(8deg); opacity: 0; }
-  18%           { opacity: 0.9; }
-  50%           { transform: translateX(340%) rotate(8deg); opacity: 0; }
-}
-.medal-back {
-  transform: translateZ(-15px) rotateY(180deg);
-  background: radial-gradient(120% 120% at 30% 25%, #312e81 0%, #14103a 70%);
-  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.1);
-}
-.medal-front svg { width: 78%; height: 78%; position: relative; z-index: 1; }
-.medal-check {
-  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.85))
-          drop-shadow(0 3px 3px rgba(10, 6, 40, 0.55));
+/* Second ring set back in Z — reads as the far side of the projection */
+.holo-ring-back {
+  inset: 11%;
+  border-width: 2px;
+  border-color: rgba(103, 232, 249, 0.4);
+  background: none;
+  box-shadow: 0 0 14px rgba(34, 211, 238, 0.3);
+  transform: translateZ(-34px);
 }
 
-/* Contact shadow on the ground plane — the main cue that the medal is a
-   physical object sitting in space rather than a sticker. */
-.medal-shadow {
+/* Node mesh */
+.holo-net {
   position: absolute;
-  left: 50%;
-  bottom: -30px;
-  width: 168px;
-  height: 26px;
-  transform: translateX(-50%);
-  border-radius: 50%;
-  background: radial-gradient(ellipse, rgba(49, 46, 129, 0.42), rgba(34, 211, 238, 0.16) 55%, transparent 72%);
-  filter: blur(7px);
-  animation: medal-shadow-pulse 9s ease-in-out infinite;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform: translateZ(-12px);
+  overflow: visible;
 }
-@keyframes medal-shadow-pulse {
-  0%, 100% { width: 150px; opacity: 0.75; }
-  50%      { width: 178px; opacity: 1; }
+.holo-net-lines path {
+  stroke: rgba(103, 232, 249, 0.42);
+  stroke-width: 1;
+  fill: none;
+}
+.holo-net-dots circle {
+  fill: #a5f3fc;
+  filter: drop-shadow(0 0 4px rgba(34, 211, 238, 0.95));
+  animation: holo-twinkle 3.4s ease-in-out infinite;
+}
+.holo-net-dots circle:nth-child(3n)   { animation-delay: 0.7s; }
+.holo-net-dots circle:nth-child(3n+1) { animation-delay: 1.5s; }
+.holo-net-dots circle:nth-child(4n)   { animation-delay: 2.2s; }
+@keyframes holo-twinkle {
+  0%, 100% { opacity: 0.45; }
+  50%      { opacity: 1; }
 }
 
-.seal-paused .medal,
-.seal-paused .medal-shadow,
-.seal-paused .medal-front::after { animation-play-state: paused; }
+/* The check itself — script.js stacks copies along Z to extrude it */
+.holo-check {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+}
+.holo-check-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  color: #67e8f9;
+}
+/* Front-most copy: white core with a strong bloom, like the reference */
+.holo-check-svg.is-front {
+  color: #ffffff;
+  filter: drop-shadow(0 0 10px rgba(165, 243, 252, 0.95))
+          drop-shadow(0 0 26px rgba(34, 211, 238, 0.75));
+}
+
+.seal-paused .holo,
+.seal-paused .seal-scene::before,
+.seal-paused .holo-net-dots circle { animation-play-state: paused; }
 
 @media (prefers-reduced-motion: reduce) {
-  .medal { animation: none; transform: rotateY(-18deg) rotateX(6deg); }
-  .medal-shadow { animation: none; }
-  .medal-front::after { animation: none; opacity: 0; }
+  .holo { animation: none; transform: rotateY(-16deg) rotateX(6deg); }
+  .seal-scene::before { animation: none; }
+  .holo-net-dots circle { animation: none; opacity: 0.85; }
   .seal-tilt { transition: none; }
 }
+
 .seal-caption {
   font-family: 'Outfit', sans-serif;
   font-weight: 600;
-  font-size: 1rem;
-  color: var(--navy);
-  letter-spacing: 0.02em;
+  font-size: 1.05rem;
+  color: #cffafe;
+  letter-spacing: 0.03em;
   text-align: center;
   margin: 0;
+  text-shadow: 0 0 18px rgba(34, 211, 238, 0.45);
 }
 
 /* VISION */

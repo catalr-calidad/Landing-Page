@@ -101,29 +101,27 @@ if (sealScene && !prefersReducedMotion && hasFinePointer) {
   });
 }
 
-// Build the medal's extrusion body: a stack of discs spaced along Z. CSS alone
-// can't extrude a shape, so the thickness you see when it swings is these
-// slices. Shaded darker toward the back so the rim reads as a lit edge.
-const medal = document.getElementById('medal');
-if (medal) {
-  const SLICES = 24;
-  const DEPTH = 15; // must match the ±15px translateZ on .medal-front/.medal-back
+// Extrude the holographic check: stack copies of the same SVG along Z. CSS
+// can't extrude a path, so the depth you see when it swings is these layers —
+// dim cyan at the back fading up to a white, blooming front face.
+const holoCheck = document.getElementById('holo-check');
+if (holoCheck) {
+  const base = holoCheck.querySelector('.holo-check-svg');
+  const LAYERS = 16;
+  const DEPTH = 30; // total thickness in px
   const frag = document.createDocumentFragment();
-  for (let i = 0; i < SLICES; i++) {
-    const t = i / (SLICES - 1);              // 0 = back, 1 = front
-    const z = -DEPTH + t * (DEPTH * 2);
-    const slice = document.createElement('span');
-    slice.className = 'medal-slice';
-    slice.style.transform = `translateZ(${z.toFixed(2)}px)`;
-    // Hue shifts violet -> cyan and brightens toward the front, so the rim
-    // catches an iridescent gradient instead of reading as one flat colour.
-    const hue = 258 - t * 68;                // 258 (violet) -> 190 (cyan)
-    const light = 16 + t * 26;               // 16% -> 42%
-    const sat = 62 + t * 24;                 // 62% -> 86%
-    slice.style.background = `hsl(${hue.toFixed(0)} ${sat.toFixed(0)}% ${light.toFixed(0)}%)`;
-    frag.appendChild(slice);
+  for (let i = 0; i < LAYERS - 1; i++) {
+    const t = i / (LAYERS - 1);            // 0 = back, ~1 = just behind front
+    const layer = base.cloneNode(true);
+    layer.style.transform = `translateZ(${(-DEPTH + t * DEPTH).toFixed(2)}px)`;
+    layer.style.opacity = (0.16 + t * 0.5).toFixed(2);
+    // hue drifts blue -> cyan toward the front so the edge looks refractive
+    layer.style.color = `hsl(${(200 - t * 14).toFixed(0)} 92% ${(52 + t * 20).toFixed(0)}%)`;
+    frag.appendChild(layer);
   }
-  medal.insertBefore(frag, medal.firstChild);
+  holoCheck.insertBefore(frag, base);
+  base.classList.add('is-front');
+  base.style.transform = 'translateZ(0px)';
 }
 
 // Pause the seal's continuous 3D rotation while it's off-screen so it isn't
