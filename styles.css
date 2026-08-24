@@ -568,7 +568,7 @@ h1, h2, h3, .logo, .footer-name {
 }
 
 /* SECTIONS */
-.section { padding: 120px 0; }
+.section { padding: 96px 0; }
 .section.alt { background: var(--bg-cream); }
 
 .section-head {
@@ -1133,12 +1133,6 @@ h1, h2, h3, .logo, .footer-name {
   font-weight: 600;
   letter-spacing: 0.02em;
 }
-.testimonial-note {
-  text-align: center;
-  color: var(--ink-soft);
-  font-size: 0.82rem;
-  margin-top: 40px;
-}
 
 /* CTA FINAL */
 .cta-final { text-align: center; }
@@ -1291,7 +1285,7 @@ h1, h2, h3, .logo, .footer-name {
 }
 
 @media (max-width: 600px) {
-  .section { padding: 80px 0; }
+  .section { padding: 60px 0; }
   .hero { padding: 88px 0 96px; }
   .hero-dark { clip-path: polygon(0 0, 100% 0, 100% calc(100% - 32px), 0 100%); }
   .vision { clip-path: polygon(0 32px, 100% 0, 100% 100%, 0 100%); margin-top: -32px; padding: 110px 0; }
@@ -1320,4 +1314,432 @@ h1, h2, h3, .logo, .footer-name {
 @media (max-width: 340px) {
   .nav-cta { display: none; }
   .logo { font-size: 0.88rem; }
+}
+
+/* ==========================================================================
+   AUDITORÍA v36 — bloques nuevos
+   Los cambios de esta tanda salen de una evaluación de la página hecha por un
+   visitante simulado (odontólogo propietario). Cada bloque responde a un
+   hallazgo concreto de esa encuesta.
+   ========================================================================== */
+
+/* --- Icono de WhatsApp dentro de los botones ------------------------------
+   El visitante no sabía a dónde lo llevaba "Contáctanos". Ahora el destino
+   se ve antes de tocar. */
+.btn-wa-icon {
+  width: 1.05em;
+  height: 1.05em;
+  margin-right: 8px;
+  vertical-align: -0.15em;
+  flex: none;
+}
+.nav-cta .btn-wa-icon { margin-right: 6px; }
+.btn-block { display: flex; align-items: center; justify-content: center; }
+
+/* --- HERO: quién es el público y cuál es la promesa ----------------------- */
+.hero-eyebrow {
+  display: block;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.62);
+  margin-bottom: 22px;
+}
+.hero-promise {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(1.15rem, 2.1vw, 1.5rem);
+  font-weight: 500;
+  line-height: 1.4;
+  color: #fff;
+  max-width: 680px;
+  margin: 0 auto 20px;
+}
+.hero-chips {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  padding: 0;
+  margin: 0 0 36px;
+}
+.hero-chips li {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 999px;
+  padding: 7px 16px;
+}
+
+/* --- "Esto es para ti si…" ------------------------------------------------
+   El visitante pedía reconocerse en un caso concreto antes de decidir. */
+.fit-check {
+  margin-top: 56px;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--navy);
+  border-radius: var(--radius);
+  background: var(--bg-cream);
+  padding: 34px 38px;
+}
+.fit-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--navy);
+  margin: 0 0 18px;
+}
+.fit-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 26px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px 32px;
+}
+.fit-list li {
+  position: relative;
+  padding-left: 28px;
+  color: var(--ink-soft);
+  font-size: 0.96rem;
+  line-height: 1.5;
+}
+.fit-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.42em;
+  width: 11px;
+  height: 6px;
+  border-left: 2px solid var(--navy);
+  border-bottom: 2px solid var(--navy);
+  transform: rotate(-45deg);
+}
+.btn-outline {
+  border: 1.5px solid var(--navy);
+  color: var(--navy);
+  background: transparent;
+  display: inline-flex;
+  align-items: center;
+}
+.btn-outline:hover { background: var(--navy); color: #fff; }
+
+/* --- SOBRE CATALINA -------------------------------------------------------
+   El hallazgo más grave después de los avisos de borrador: la página no decía
+   quién es la persona a la que le vas a entregar los papeles del consultorio. */
+.about-grid {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 64px;
+  align-items: start;
+}
+.about-portrait {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  border-radius: var(--radius);
+  background: linear-gradient(150deg, var(--navy) 0%, var(--navy-deep) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+/* Marco listo para recibir la foto real: basta con poner
+   background-image en .about-portrait y ocultar el monograma. */
+.about-portrait::after {
+  content: '';
+  position: absolute;
+  inset: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 3px;
+  pointer-events: none;
+}
+.about-monogram {
+  font-family: 'Outfit', sans-serif;
+  font-size: 3.1rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: #fff;
+}
+.about-direct {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 22px;
+}
+.about-link {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+  text-decoration: none;
+  word-break: break-word;
+  transition: color 0.2s ease;
+}
+.about-link:hover { color: var(--navy); }
+
+.about-copy h2 { margin-bottom: 18px; }
+.about-lead {
+  font-size: 1.08rem;
+  font-weight: 500;
+  color: var(--navy);
+  margin: 0 0 20px;
+  line-height: 1.5;
+}
+.about-copy p {
+  color: var(--ink-soft);
+  line-height: 1.7;
+  margin: 0 0 16px;
+}
+.about-norms {
+  margin-top: 32px;
+  padding-top: 26px;
+  border-top: 1px solid var(--border);
+}
+.about-norms-label {
+  display: block;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--slate);
+  margin-bottom: 16px;
+}
+.about-norms ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 10px;
+}
+.about-norms li {
+  position: relative;
+  padding-left: 20px;
+  font-size: 0.92rem;
+  color: var(--ink-soft);
+  line-height: 1.5;
+}
+.about-norms li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+  width: 8px;
+  height: 1px;
+  background: var(--slate-light);
+}
+.about-norms strong { color: var(--ink); font-weight: 600; }
+
+/* --- RESULTADOS (reemplaza los testimonios inventados) -------------------- */
+.outcomes-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+.outcome {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 34px 30px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.outcome:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 30px rgba(15, 39, 68, 0.09);
+}
+.outcome-mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: var(--navy);
+  color: #fff;
+  margin-bottom: 22px;
+}
+.outcome-mark svg { width: 23px; height: 23px; }
+.outcome h3 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.06rem;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--ink);
+  margin: 0 0 12px;
+}
+.outcome p {
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* --- PREGUNTAS FRECUENTES -------------------------------------------------
+   Precio, duración y "¿tengo que cerrar?" eran las objeciones que frenaban la
+   decisión y no estaban respondidas en ninguna parte. */
+.faq-list {
+  border-top: 1px solid var(--border);
+}
+.faq-item {
+  border-bottom: 1px solid var(--border);
+}
+.faq-item summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 24px 44px 24px 0;
+  position: relative;
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.04rem;
+  font-weight: 500;
+  color: var(--ink);
+  line-height: 1.4;
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary:hover { color: var(--navy); }
+.faq-item summary:focus-visible {
+  outline: 2px solid var(--navy);
+  outline-offset: 3px;
+}
+.faq-item summary::after {
+  content: '';
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  width: 11px;
+  height: 11px;
+  margin-top: -7px;
+  border-right: 2px solid var(--slate);
+  border-bottom: 2px solid var(--slate);
+  transform: rotate(45deg);
+  transition: transform 0.25s ease;
+}
+.faq-item[open] summary { color: var(--navy); }
+.faq-item[open] summary::after {
+  transform: rotate(-135deg);
+  margin-top: -2px;
+}
+.faq-answer {
+  padding: 0 44px 26px 0;
+}
+.faq-answer p {
+  margin: 0;
+  color: var(--ink-soft);
+  line-height: 1.7;
+}
+@media (prefers-reduced-motion: reduce) {
+  .faq-item summary::after { transition: none; }
+}
+
+/* --- FORMULARIO: validación visible --------------------------------------- */
+.field-error {
+  font-size: 0.8rem;
+  color: var(--alert);
+  min-height: 0;
+}
+.field-error:empty { display: none; }
+.form-row input.has-error,
+.form-row select.has-error {
+  border-color: var(--alert);
+  outline-color: var(--alert);
+}
+.form-disclaimer a { color: var(--navy); }
+.form-success-alt {
+  display: block;
+  margin-top: 8px;
+  font-weight: 400;
+  font-size: 0.86rem;
+}
+.form-success-alt a { color: #1e6b34; }
+
+/* --- Menú móvil: telón de fondo -------------------------------------------
+   Sin él, la capa blanca a media pantalla se leía como un menú roto. */
+.nav-scrim {
+  position: fixed;
+  inset: 0;
+  background: rgba(9, 16, 26, 0.42);
+  z-index: 90;
+  animation: scrim-in 0.2s ease;
+}
+.nav-scrim[hidden] { display: none; }
+@keyframes scrim-in { from { opacity: 0; } to { opacity: 1; } }
+body.nav-open { overflow: hidden; }
+@media (prefers-reduced-motion: reduce) {
+  .nav-scrim { animation: none; }
+}
+
+/* --- Botón flotante: que deje de tapar el texto --------------------------- */
+.whatsapp-float.is-tucked {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(12px);
+}
+.whatsapp-float {
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+/* --- RESPONSIVE de los bloques nuevos ------------------------------------- */
+@media (max-width: 900px) {
+  .about-grid { grid-template-columns: 1fr; gap: 36px; }
+  .about-portrait { max-width: 220px; aspect-ratio: 1 / 1; }
+  .about-direct { margin-top: 18px; }
+  .outcomes-grid { grid-template-columns: 1fr; gap: 20px; }
+  .fit-list { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 600px) {
+  .hero-eyebrow { font-size: 0.66rem; letter-spacing: 0.1em; margin-bottom: 16px; }
+  .hero-chips { gap: 8px; margin-bottom: 28px; }
+  .hero-chips li { font-size: 0.72rem; padding: 6px 13px; }
+  .fit-check { padding: 26px 22px; margin-top: 40px; }
+  .outcome { padding: 26px 22px; }
+  .faq-item summary { font-size: 0.98rem; padding: 20px 38px 20px 0; }
+  .faq-answer { padding-right: 0; padding-bottom: 22px; }
+  .about-monogram { font-size: 2.4rem; }
+  /* Más chico y más abajo: en pruebas tapaba palabras mientras se leía. */
+  .whatsapp-float { width: 50px; height: 50px; bottom: 16px; right: 16px; }
+}
+
+/* --- Compactación v36 -----------------------------------------------------
+   El visitante bajó ~11 pantallas de celular y sintió la página "estirada".
+   La sección de método ahora contiene la ruta y los tres pasos juntos, y el
+   ritmo vertical en móvil se cierra para que no queden huecos muertos. */
+.subsection-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.28rem;
+  font-weight: 600;
+  color: var(--navy);
+  text-align: center;
+  margin: 76px 0 32px;
+}
+
+@media (max-width: 400px) {
+  /* El icono de WhatsApp ensanchaba el CTA del header y desbordaba 3px. */
+  .nav-cta .btn-wa-icon { display: none; }
+}
+
+@media (max-width: 600px) {
+  .section { padding: 52px 0; }
+  .hero { padding: 72px 0 76px; }
+  .vision { padding: 84px 0; }
+  .seal-band { padding: 60px 0; }
+  .subsection-title { margin: 44px 0 24px; font-size: 1.12rem; }
+  .section-head { margin-bottom: 34px; }
+  .pain-card { padding: 26px 22px; }
+  .pain-icon { width: 42px; height: 42px; margin-bottom: 16px; }
+  .pain-card h3 { font-size: 0.98rem; }
+  .pillar { padding: 24px 22px; }
+  .contact-form-wrap { margin-top: 44px; }
+  .about-portrait { max-width: 172px; }
+  .about-norms { margin-top: 24px; padding-top: 20px; }
+}
+
+/* La ruta arrancaba 130px por debajo del encabezado: hueco muerto en la
+   pantalla que el visitante señaló como "estirada". */
+.route-map { margin-top: 76px; }
+@media (max-width: 700px) {
+  .route-map { gap: 26px; margin-top: 36px; }
+  .route-stop:not(:last-child)::after { top: 66px; height: 26px; }
 }

@@ -4,16 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Catalina López Rodríguez | Asesoría en Calidad</title>
-  <meta name="description" content="Blindamos tu consultorio odontológico o laboratorio dental con un sistema de calidad completo, sin interrumpir tu operación diaria.">
+  <meta name="description" content="Asesoría en calidad para consultorios odontológicos, laboratorios dentales y centros de estética en Colombia. Habilitación, documentación y acompañamiento, sin interrumpir tu operación diaria.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=35">
+  <link rel="stylesheet" href="styles.css?v=36">
   <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
 
   <div class="scroll-progress-track" aria-hidden="true"><span id="scroll-progress"></span></div>
+
+  <div class="nav-scrim" id="nav-scrim" hidden></div>
 
   <header class="site-header" id="top">
     <div class="container header-inner">
@@ -22,11 +24,14 @@
         <a href="#servicios">Servicios</a>
         <a href="#dolores">Riesgos</a>
         <a href="#pilares">Método</a>
-        <a href="#vision">Visión</a>
-        <a href="#testimonios">Testimonios</a>
+        <a href="#sobre">Sobre Catalina</a>
+        <a href="#preguntas">Preguntas</a>
         <a href="#contacto">Contacto</a>
       </nav>
-      <a href="https://wa.me/573112468627?text=Hola%20Catalina%2C%20quiero%20mi%20diagn%C3%B3stico%20de%20calidad" class="btn btn-primary nav-cta" target="_blank" rel="noopener">Contáctanos</a>
+      <a href="https://wa.me/573112468627?text=Hola%20Catalina%2C%20quiero%20mi%20diagn%C3%B3stico%20de%20calidad" class="btn btn-primary nav-cta" target="_blank" rel="noopener">
+        <svg class="btn-wa-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5.1-1.3A10 10 0 1012 2zm5.1 14.1c-.2.6-1.2 1.2-1.7 1.2-.4 0-.5.3-3-.7-2.5-1-4-3.6-4.2-3.8-.1-.2-1-1.3-1-2.5s.6-1.8.9-2.1c.2-.2.5-.3.6-.3h.5c.2 0 .4 0 .6.5l.9 2c.1.2.1.4 0 .5l-.4.5c-.1.2-.3.3-.1.6.1.3.7 1.1 1.5 1.8 1 .9 1.8 1.1 2.1 1.3.2.1.4 0 .5-.1l.8-1c.2-.2.3-.2.5-.1l2 .9c.2.1.4.2.4.3.1.1.1.5-.1 1z"/></svg>
+        Escríbenos
+      </a>
       <button class="nav-toggle" id="nav-toggle" aria-label="Abrir menú" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
@@ -40,14 +45,25 @@
       <span class="hero-orb hero-orb-2" aria-hidden="true"></span>
       <div class="container hero-inner-centered">
         <div class="hero-copy">
+          <span class="hero-eyebrow">Consultorios odontológicos · Laboratorios dentales · Centros de estética</span>
           <h1>Asesoría en Calidad</h1>
-          <p class="hero-sub">
-            Transformamos tu consultorio odontológico o laboratorio dental con un sistema de calidad completo y ordenado,
-            garantizando el cumplimiento de la normativa vigente, sin interrumpir tu operación diaria. Tú enfócate en tus
-            pacientes y en tu producción. Nosotros nos encargamos del resto.
+          <p class="hero-promise">
+            Tu establecimiento listo para la visita de verificación, sin que dejes de atender.
           </p>
+          <p class="hero-sub">
+            Diseñamos e implementamos tu sistema de calidad completo y ordenado, cumpliendo la normativa vigente.
+            Tú enfócate en tus pacientes y en tu producción. Nosotros nos encargamos del resto.
+          </p>
+          <ul class="hero-chips">
+            <li>Habilitación</li>
+            <li>Documentación</li>
+            <li>Acompañamiento</li>
+          </ul>
           <div class="hero-actions hero-actions-centered">
-            <a href="https://wa.me/573112468627?text=Hola%20Catalina%2C%20quiero%20mi%20diagn%C3%B3stico%20de%20calidad" class="btn btn-primary" target="_blank" rel="noopener">Contáctanos</a>
+            <a href="https://wa.me/573112468627?text=Hola%20Catalina%2C%20quiero%20mi%20diagn%C3%B3stico%20de%20calidad" class="btn btn-primary" target="_blank" rel="noopener">
+              <svg class="btn-wa-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5.1-1.3A10 10 0 1012 2zm5.1 14.1c-.2.6-1.2 1.2-1.7 1.2-.4 0-.5.3-3-.7-2.5-1-4-3.6-4.2-3.8-.1-.2-1-1.3-1-2.5s.6-1.8.9-2.1c.2-.2.5-.3.6-.3h.5c.2 0 .4 0 .6.5l.9 2c.1.2.1.4 0 .5l-.4.5c-.1.2-.3.3-.1.6.1.3.7 1.1 1.5 1.8 1 .9 1.8 1.1 2.1 1.3.2.1.4 0 .5-.1l.8-1c.2-.2.3-.2.5-.1l2 .9c.2.1.4.2.4.3.1.1.1.5-.1 1z"/></svg>
+              Escríbenos por WhatsApp
+            </a>
             <a href="#pilares" class="btn btn-text btn-text-light">Conoce cómo trabajamos <span aria-hidden="true">→</span></a>
           </div>
         </div>
@@ -134,7 +150,7 @@
         </div>
         <div class="carousel-status">
           <div class="carousel-dots" id="carousel-dots" role="tablist" aria-label="Páginas de servicios"></div>
-          <span class="carousel-hint">Desliza para ver los 6 servicios</span>
+          <span class="carousel-hint" id="carousel-hint">6 servicios · desliza para verlos todos</span>
         </div>
       </div>
     </section>
@@ -169,14 +185,28 @@
             <h3>"Sabes que deberías tener esto ordenado, pero entre paciente y paciente nunca hay tiempo."</h3>
           </article>
         </div>
+
+        <div class="fit-check">
+          <h3 class="fit-title">Esto es para ti si…</h3>
+          <ul class="fit-list">
+            <li>Vas a abrir tu consultorio, laboratorio o centro de estética y no sabes por dónde empezar.</li>
+            <li>Nunca has pasado una visita de verificación y no sabes qué te van a pedir.</li>
+            <li>Te llegó un requerimiento de la Secretaría de Salud y tienes plazo para responder.</li>
+            <li>Ya tienes documentos, pero están desactualizados o nadie en tu equipo los usa.</li>
+          </ul>
+          <a href="https://wa.me/573112468627?text=Hola%20Catalina%2C%20quiero%20saber%20si%20mi%20caso%20aplica" class="btn btn-outline btn-wa" target="_blank" rel="noopener">
+            <svg class="btn-wa-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5.1-1.3A10 10 0 1012 2zm5.1 14.1c-.2.6-1.2 1.2-1.7 1.2-.4 0-.5.3-3-.7-2.5-1-4-3.6-4.2-3.8-.1-.2-1-1.3-1-2.5s.6-1.8.9-2.1c.2-.2.5-.3.6-.3h.5c.2 0 .4 0 .6.5l.9 2c.1.2.1.4 0 .5l-.4.5c-.1.2-.3.3-.1.6.1.3.7 1.1 1.5 1.8 1 .9 1.8 1.1 2.1 1.3.2.1.4 0 .5-.1l.8-1c.2-.2.3-.2.5-.1l2 .9c.2.1.4.2.4.3.1.1.1.5-.1 1z"/></svg>
+            Cuéntanos tu caso
+          </a>
+        </div>
       </div>
     </section>
 
-    <!-- PROPUESTA DE TRANSFORMACIÓN -->
-    <section class="section alt fade-in">
+    <!-- MÉTODO: la ruta y los tres pasos, en una sola sección -->
+    <section class="section alt fade-in" id="pilares">
       <div class="container">
         <div class="section-head">
-          <span class="eyebrow">La transformación</span>
+          <span class="eyebrow">Nuestro método</span>
           <h2>Menos caos. Más control. Cero interrupciones en tu día.</h2>
           <p class="lead-paragraph">La calidad deja de ser tu carga y se convierte en nuestra responsabilidad.</p>
         </div>
@@ -192,7 +222,7 @@
             <span class="route-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.5" stroke="#fff" stroke-width="1.8"/><circle cx="12" cy="12" r="4.5" stroke="#fff" stroke-width="1.8"/><circle cx="12" cy="12" r="1" fill="#fff"/></svg>
             </span>
-            <span class="route-label">Brechas</span>
+            <span class="route-label">Riesgos</span>
             <span class="route-tooltip" role="tooltip">Identificamos los riesgos críticos que pueden generarte sanciones.</span>
           </button>
           <button type="button" class="route-stop" aria-expanded="false">
@@ -217,16 +247,8 @@
             <span class="route-tooltip" role="tooltip">Ganas la confianza de tus pacientes y clientes.</span>
           </button>
         </div>
-      </div>
-    </section>
 
-    <!-- 3 PILARES -->
-    <section class="section fade-in" id="pilares">
-      <div class="container">
-        <div class="section-head">
-          <span class="eyebrow">Nuestro método</span>
-          <h2>Tres pasos, sin fricción</h2>
-        </div>
+        <h3 class="subsection-title">Tres pasos, sin fricción</h3>
         <div class="pillars-grid stagger">
           <article class="pillar">
             <span class="pillar-watermark" aria-hidden="true">01</span>
@@ -322,6 +344,51 @@
       </div>
     </section>
 
+    <!-- SOBRE CATALINA -->
+    <section class="section alt fade-in" id="sobre">
+      <div class="container">
+        <div class="about-grid">
+          <div class="about-side">
+            <div class="about-portrait">
+              <span class="about-monogram" aria-hidden="true">CLR</span>
+            </div>
+            <div class="about-direct">
+              <a class="about-link" href="https://wa.me/573112468627?text=Hola%20Catalina%2C%20quiero%20hablar%20contigo" target="_blank" rel="noopener">+57 311 246 8627</a>
+              <a class="about-link" href="mailto:catalr@consultoracalidad.com">catalr@consultoracalidad.com</a>
+              <a class="about-link" href="https://www.instagram.com/catalrconsultoracalidad/" target="_blank" rel="noopener">@catalrconsultoracalidad</a>
+            </div>
+          </div>
+
+          <div class="about-copy">
+            <span class="eyebrow">Quién está detrás</span>
+            <h2>Sobre Catalina</h2>
+            <p class="about-lead">
+              Asesora en calidad para consultorios odontológicos, laboratorios dentales y centros de estética en Colombia.
+            </p>
+            <p>
+              Mi trabajo es traducir la norma a algo que tu equipo pueda hacer un martes cualquiera, entre paciente y
+              paciente. No te entrego una carpeta con doscientas hojas y desaparezco: me quedo hasta que el sistema
+              camine solo dentro de tu establecimiento.
+            </p>
+            <p>
+              Cuando escribes por WhatsApp hablas directamente conmigo. Sabes quién revisa tu documentación, quién arma
+              tu sistema y quién va a estar contigo el día de la visita de verificación.
+            </p>
+
+            <div class="about-norms">
+              <span class="about-norms-label">Marco normativo con el que trabajamos</span>
+              <ul>
+                <li><strong>Resolución 3100 de 2019</strong> — inscripción de prestadores y habilitación de servicios de salud.</li>
+                <li><strong>REPS</strong> — inscripción, novedades y autoevaluación de estándares.</li>
+                <li><strong>Resolución 2827 de 2006</strong> — bioseguridad en establecimientos de estética y cosmetología.</li>
+                <li><strong>Visitas de verificación</strong> de las Secretarías de Salud departamentales y distritales.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- VISIÓN DE MARCA -->
     <section class="vision fade-in" id="vision">
       <div class="container narrow">
@@ -335,40 +402,72 @@
       </div>
     </section>
 
-    <!-- TESTIMONIOS -->
-    <section class="section fade-in" id="testimonios">
+    <!-- RESULTADOS -->
+    <section class="section alt fade-in" id="resultados">
       <div class="container">
         <div class="section-head">
-          <span class="eyebrow">Testimonios</span>
-          <h2>Lo que dicen quienes ya trabajan con nosotros</h2>
+          <span class="eyebrow">Resultados</span>
+          <h2>Qué cambia en tu día a día</h2>
         </div>
-        <div class="testimonials-grid stagger">
-          <blockquote class="testimonial">
-            <span class="quote-mark" aria-hidden="true">&ldquo;</span>
-            <p>Antes vivía con miedo a una visita de la Secretaría de Salud. Hoy sé exactamente dónde está cada protocolo y mi equipo lo sigue sin que yo esté encima.</p>
-            <footer>
-              <span class="avatar" aria-hidden="true">MC</span>
-              <span>Odontóloga, propietaria de consultorio</span>
-            </footer>
-          </blockquote>
-          <blockquote class="testimonial">
-            <span class="quote-mark" aria-hidden="true">&ldquo;</span>
-            <p>Documentamos procesos que llevábamos años haciendo "de memoria". Ahora cualquier persona nueva se pone al día rápido y sin depender de mí para todo.</p>
-            <footer>
-              <span class="avatar" aria-hidden="true">JR</span>
-              <span>Director técnico, laboratorio dental</span>
-            </footer>
-          </blockquote>
-          <blockquote class="testimonial">
-            <span class="quote-mark" aria-hidden="true">&ldquo;</span>
-            <p>El acompañamiento después de la entrega fue lo que más valoré. No nos dejaron solos con una carpeta de papeles.</p>
-            <footer>
-              <span class="avatar" aria-hidden="true">AL</span>
-              <span>Propietario, laboratorio dental</span>
-            </footer>
-          </blockquote>
+        <div class="outcomes-grid stagger">
+          <article class="outcome">
+            <span class="outcome-mark" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M4 6.5A1.5 1.5 0 015.5 5H10l1.6 2H18.5A1.5 1.5 0 0120 8.5v9a1.5 1.5 0 01-1.5 1.5h-13A1.5 1.5 0 014 17.5v-11z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M9 13l2 2 4-4.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <h3>Llega la visita y sabes exactamente qué abrir</h3>
+            <p>Dejas de improvisar el día de la verificación. La documentación está armada, actualizada y en un solo lugar.</p>
+          </article>
+          <article class="outcome">
+            <span class="outcome-mark" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><circle cx="9" cy="8.5" r="3.2" stroke="currentColor" stroke-width="1.7"/><path d="M3.5 19c0-2.8 2.5-4.6 5.5-4.6s5.5 1.8 5.5 4.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M16.5 9.5h4M16.5 13h4M16.5 16.5h4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+            </span>
+            <h3>Tu equipo opera sin que tengas que estar encima</h3>
+            <p>Los protocolos quedan escritos en el lenguaje de quien los ejecuta, no en el del papel. Se siguen porque se entienden.</p>
+          </article>
+          <article class="outcome">
+            <span class="outcome-mark" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M9.5 12l1.8 1.8L15 10" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <h3>La operación deja de depender de una sola persona</h3>
+            <p>Alguien nuevo entra y se pone al día leyendo, no preguntando. El conocimiento queda en el establecimiento, no en la memoria de alguien.</p>
+          </article>
         </div>
-        <p class="testimonial-note">* Testimonios de ejemplo — se reemplazarán por opiniones reales de clientes.</p>
+      </div>
+    </section>
+
+    <!-- PREGUNTAS FRECUENTES -->
+    <section class="section fade-in" id="preguntas">
+      <div class="container narrow">
+        <div class="section-head">
+          <span class="eyebrow">Preguntas frecuentes</span>
+          <h2>Lo que casi todos preguntan primero</h2>
+        </div>
+        <div class="faq-list">
+          <details class="faq-item">
+            <summary>¿Tengo que cerrar o parar la consulta mientras implementamos?</summary>
+            <div class="faq-answer"><p>No. Todo el proceso está diseñado para avanzar sin interrumpir tu operación: nos adaptamos a tus horarios y trabajamos sobre lo que ya haces, no sobre un modelo aparte.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>¿Cuánto se demora el proceso?</summary>
+            <div class="faq-answer"><p>Depende de qué tan lejos estés hoy de la norma. Por eso el primer paso siempre es el diagnóstico: en esa conversación te decimos qué falta y en cuánto tiempo realista se resuelve, sin promesas infladas.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>¿Cuánto cuesta?</summary>
+            <div class="faq-answer"><p>El diagnóstico inicial es una conversación de 30 minutos, sin costo y sin compromiso. La propuesta se arma después, según el tamaño de tu establecimiento y los servicios que necesites habilitar, para que no pagues por lo que no aplica a tu caso.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>No entiendo nada de normas. ¿Eso es un problema?</summary>
+            <div class="faq-answer"><p>Al contrario, ese es exactamente el punto. Nuestro trabajo es traducir la norma a instrucciones concretas para ti y para tu equipo. No necesitas aprender el lenguaje técnico ni memorizar resoluciones.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>¿Trabajan solo con odontología?</summary>
+            <div class="faq-answer"><p>Acompañamos consultorios odontológicos, odontólogos independientes, laboratorios dentales, medicina estética y centros de cosmetología estética. Cada uno tiene requisitos distintos y se trabaja por separado, no con un formato genérico.</p></div>
+          </details>
+          <details class="faq-item">
+            <summary>¿Qué pasa después de que escribo por WhatsApp?</summary>
+            <div class="faq-answer"><p>Coordinamos la conversación de 30 minutos. Ahí te decimos dónde está tu mayor riesgo hoy y qué se necesita para cerrarlo. Si decides seguir, armamos la propuesta; si no, te quedas igual con el diagnóstico.</p></div>
+          </details>
+        </div>
       </div>
     </section>
 
@@ -381,15 +480,19 @@
           Agenda una conversación con nosotros. En 30 minutos te decimos exactamente dónde está tu mayor riesgo
           y cómo podemos ayudarte a resolverlo.
         </p>
-        <a href="https://wa.me/573112468627?text=Hola%20Catalina%2C%20quiero%20mi%20diagn%C3%B3stico%20de%20calidad" class="btn btn-primary btn-lg" target="_blank" rel="noopener">Contáctanos</a>
+        <a href="https://wa.me/573112468627?text=Hola%20Catalina%2C%20quiero%20mi%20diagn%C3%B3stico%20de%20calidad" class="btn btn-primary btn-lg" target="_blank" rel="noopener">
+          <svg class="btn-wa-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5.1-1.3A10 10 0 1012 2zm5.1 14.1c-.2.6-1.2 1.2-1.7 1.2-.4 0-.5.3-3-.7-2.5-1-4-3.6-4.2-3.8-.1-.2-1-1.3-1-2.5s.6-1.8.9-2.1c.2-.2.5-.3.6-.3h.5c.2 0 .4 0 .6.5l.9 2c.1.2.1.4 0 .5l-.4.5c-.1.2-.3.3-.1.6.1.3.7 1.1 1.5 1.8 1 .9 1.8 1.1 2.1 1.3.2.1.4 0 .5-.1l.8-1c.2-.2.3-.2.5-.1l2 .9c.2.1.4.2.4.3.1.1.1.5-.1 1z"/></svg>
+          Escríbenos por WhatsApp
+        </a>
         <p class="micro-text">Sin compromisos. Sin tecnicismos. Con Claridad.</p>
 
         <div class="contact-form-wrap">
-          <p class="form-alt-label">¿Prefieres que te contactemos nosotros? Déjanos tus datos:</p>
+          <p class="form-alt-label">¿Prefieres dejar tus datos y que te escribamos nosotros?</p>
           <form id="contact-form" novalidate>
             <div class="form-row">
               <label for="name">Nombre</label>
               <input type="text" id="name" name="name" placeholder="Tu nombre" required>
+              <span class="field-error" data-for="name"></span>
             </div>
             <div class="form-row">
               <label for="establishment">Tipo de establecimiento</label>
@@ -399,22 +502,29 @@
                 <option value="laboratorio">Laboratorio dental</option>
                 <option value="centro-estetica">Centro de Estética</option>
               </select>
+              <span class="field-error" data-for="establishment"></span>
             </div>
             <div class="form-row">
               <label for="phone">Número de WhatsApp</label>
               <input type="tel" id="phone" name="phone" placeholder="Ej. 300 000 0000" required>
+              <span class="field-error" data-for="phone"></span>
             </div>
             <div class="form-row">
               <label for="message">Mensaje (opcional)</label>
               <textarea id="message" name="message" placeholder="Cuéntanos brevemente tu situación" rows="3"></textarea>
             </div>
-            <button type="submit" class="btn btn-primary btn-block">Enviar</button>
+            <button type="submit" class="btn btn-primary btn-block">
+              <svg class="btn-wa-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5.1-1.3A10 10 0 1012 2zm5.1 14.1c-.2.6-1.2 1.2-1.7 1.2-.4 0-.5.3-3-.7-2.5-1-4-3.6-4.2-3.8-.1-.2-1-1.3-1-2.5s.6-1.8.9-2.1c.2-.2.5-.3.6-.3h.5c.2 0 .4 0 .6.5l.9 2c.1.2.1.4 0 .5l-.4.5c-.1.2-.3.3-.1.6.1.3.7 1.1 1.5 1.8 1 .9 1.8 1.1 2.1 1.3.2.1.4 0 .5-.1l.8-1c.2-.2.3-.2.5-.1l2 .9c.2.1.4.2.4.3.1.1.1.5-.1 1z"/></svg>
+              Enviar por WhatsApp
+            </button>
             <p class="form-disclaimer">
-              * Formulario de demostración: este diseño no envía datos todavía. Conéctalo a tu correo o WhatsApp antes de publicar.
+              Al enviar se abre WhatsApp con tu mensaje ya redactado: solo tienes que pulsar enviar.
+              ¿Prefieres correo? Escríbenos a <a href="mailto:catalr@consultoracalidad.com">catalr@consultoracalidad.com</a>.
             </p>
           </form>
-          <div id="form-success" class="form-success hidden">
-            ✅ ¡Gracias! Simulamos el envío de tu solicitud (recuerda conectar este formulario a un destino real).
+          <div id="form-success" class="form-success hidden" role="status">
+            Abrimos WhatsApp con tu mensaje listo — solo pulsa enviar y te respondemos por ahí.
+            <span class="form-success-alt">¿No se abrió? Escríbenos a <a href="mailto:catalr@consultoracalidad.com">catalr@consultoracalidad.com</a>.</span>
           </div>
         </div>
       </div>
@@ -454,6 +564,6 @@
     </svg>
   </a>
 
-  <script src="script.js?v=35"></script>
+  <script src="script.js?v=36"></script>
 </body>
 </html>
