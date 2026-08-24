@@ -1743,3 +1743,107 @@ body.nav-open { overflow: hidden; }
   .route-map { gap: 26px; margin-top: 36px; }
   .route-stop:not(:last-child)::after { top: 66px; height: 26px; }
 }
+
+/* ==========================================================================
+   AUDITORÍA v37 — defectos que encontró la segunda evaluación (4.00/5)
+   ========================================================================== */
+
+/* --- La ruta en celular ---------------------------------------------------
+   El globito flotante se montaba encima del siguiente círculo y lo dejaba
+   ilegible. En celular la explicación deja de ser un globito: baja al flujo,
+   siempre visible. Así también se resuelve que los cinco círculos se leyeran
+   como cinco palabras sueltas sin explicación. */
+@media (max-width: 700px) {
+  .route-stop { padding-bottom: 4px; }
+  .route-tooltip {
+    position: static;
+    display: block;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    max-width: 30ch;
+    margin: 10px auto 0;
+    padding: 10px 14px;
+    font-size: 0.86rem;
+    line-height: 1.45;
+    pointer-events: none;
+    box-shadow: none;
+  }
+  .route-tooltip::after { display: none; }
+  .route-stop:hover .route-tooltip,
+  .route-stop:focus-visible .route-tooltip,
+  .route-stop.show-tip .route-tooltip { transform: none; }
+  /* El conector va del círculo al siguiente, ya no a una altura fija. */
+  .route-stop:not(:last-child)::after { display: none; }
+  .route-map { gap: 30px; }
+}
+
+/* --- El carrusel en celular ------------------------------------------------
+   Las dos flechas ocupaban 100px de los 354px de la fila, así que la tarjeta
+   quedaba de 210px y el texto salía en una columna angosta. En celular se
+   navega deslizando y con los puntos; las flechas vuelven desde tablet. */
+@media (max-width: 700px) {
+  .carousel-arrow { display: none; }
+  .services-carousel { gap: 0; }
+  .service-card { min-height: 0; }
+}
+@media (max-width: 600px) {
+  .service-card { flex-basis: 88%; padding: 10px 4px 22px; }
+  .service-card h3 { font-size: 1.12rem; }
+}
+
+/* --- El botón flotante ----------------------------------------------------
+   Se corre mientras bajas leyendo y vuelve apenas subes. */
+@media (max-width: 600px) {
+  .whatsapp-float { width: 46px; height: 46px; bottom: 12px; right: 12px; }
+}
+
+/* --- CTA dentro del menú del celular -------------------------------------- */
+.nav-menu-cta { display: none; }
+@media (max-width: 900px) {
+  .nav-menu-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 14px;
+    padding: 13px 18px;
+    font-size: 0.9rem;
+  }
+  .main-nav a.nav-menu-cta { color: #fff; }
+  .main-nav.open { max-height: 460px; }
+}
+
+/* Un escéptico quiere comprobar que la persona existe antes de escribirle.
+   Instagram es lo único verificable que tenemos hoy, así que deja de ser un
+   enlace suelto y pasa a ser una invitación explícita a comprobarlo. */
+.about-direct-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--slate);
+}
+.about-verify {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 6px;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg);
+  text-decoration: none;
+  color: var(--ink-soft);
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+.about-verify:hover { border-color: var(--navy); transform: translateY(-2px); }
+.about-verify svg { width: 18px; height: 18px; flex: none; margin-top: 2px; color: var(--navy); }
+.about-verify strong {
+  display: block;
+  color: var(--navy);
+  font-size: 0.88rem;
+  margin-bottom: 3px;
+}
+.about-verify span { font-size: 0.82rem; line-height: 1.45; }

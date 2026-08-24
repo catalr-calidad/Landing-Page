@@ -151,13 +151,27 @@ const nextArrow = document.querySelector('.carousel-next');
 const dotsWrap = document.getElementById('carousel-dots');
 
 if (servicesTrack && prevArrow && nextArrow) {
-  // Page count depends on how many cards fit at the current breakpoint, so
-  // the dots are rebuilt on resize rather than hardcoded.
+  // Paging is measured from the cards themselves, not from the track width.
+  // Deriving it from scrollWidth/clientWidth produced 5 dots for 6 cards on
+  // mobile — the sixth service was reachable only with the arrow — because a
+  // partially visible "peek" card makes that ratio fractional.
   let pageCount = 1;
+  let perView = 1;
+  let step = 0;
+
+  const measure = () => {
+    const cards = servicesTrack.querySelectorAll('.service-card');
+    if (!cards.length) return;
+    const gap = parseFloat(getComputedStyle(servicesTrack).gap) || 0;
+    const cardOuter = cards[0].getBoundingClientRect().width + gap;
+    perView = Math.max(1, Math.floor((servicesTrack.clientWidth + gap) / cardOuter));
+    step = perView * cardOuter;
+    pageCount = Math.max(1, Math.ceil(cards.length / perView));
+  };
 
   const buildDots = () => {
+    measure();
     if (!dotsWrap) return;
-    pageCount = Math.max(1, Math.round(servicesTrack.scrollWidth / servicesTrack.clientWidth));
     dotsWrap.innerHTML = '';
     for (let i = 0; i < pageCount; i++) {
       const dot = document.createElement('button');
@@ -166,7 +180,7 @@ if (servicesTrack && prevArrow && nextArrow) {
       dot.setAttribute('role', 'tab');
       dot.setAttribute('aria-label', `Ir al grupo ${i + 1} de ${pageCount}`);
       dot.addEventListener('click', () => {
-        servicesTrack.scrollTo({ left: i * servicesTrack.clientWidth, behavior: 'smooth' });
+        servicesTrack.scrollTo({ left: i * step, behavior: 'smooth' });
       });
       dotsWrap.appendChild(dot);
     }
@@ -197,8 +211,8 @@ if (servicesTrack && prevArrow && nextArrow) {
       }
     }
 
-    if (!dotsWrap) return;
-    const current = Math.round(servicesTrack.scrollLeft / servicesTrack.clientWidth);
+    if (!dotsWrap || !step) return;
+    const current = Math.min(pageCount - 1, Math.round(servicesTrack.scrollLeft / step));
     [...dotsWrap.children].forEach((dot, i) => {
       const active = i === current;
       dot.classList.toggle('is-active', active);
@@ -207,10 +221,10 @@ if (servicesTrack && prevArrow && nextArrow) {
   };
 
   prevArrow.addEventListener('click', () => {
-    servicesTrack.scrollBy({ left: -servicesTrack.clientWidth, behavior: 'smooth' });
+    servicesTrack.scrollBy({ left: -(step || servicesTrack.clientWidth), behavior: 'smooth' });
   });
   nextArrow.addEventListener('click', () => {
-    servicesTrack.scrollBy({ left: servicesTrack.clientWidth, behavior: 'smooth' });
+    servicesTrack.scrollBy({ left: step || servicesTrack.clientWidth, behavior: 'smooth' });
   });
 
   servicesTrack.addEventListener('scroll', updateUI, { passive: true });
@@ -326,11 +340,38 @@ if (form && successMessage) {
 // so it stops covering words exactly where the page is asking to be read.
 const whatsappFloat = document.querySelector('.whatsapp-float');
 const contactSection = document.getElementById('contacto');
-if (whatsappFloat && contactSection) {
-  const floatObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      whatsappFloat.classList.toggle('is-tucked', entry.isIntersecting);
-    });
-  }, { threshold: 0 });
-  floatObserver.observe(contactSection);
+if (whatsappFloat) {
+  let overContact = false;
+
+  if (contactSection) {
+    const floatObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        overContact = entry.isIntersecting;
+        whatsappFloat.classList.toggle('is-tucked', overContact);
+      });
+    }, { threshold: 0 });
+    floatObserver.observe(contactSection);
+  }
+
+  // Reading down the page is when the button is in the way, so it steps aside
+  // while you scroll forward and comes back the moment you scroll up — the
+  // header CTA stays available the whole time either way.
+  let lastY = window.scrollY;
+  let ticking = false;
+  const onScroll = () => {
+    const y = window.scrollY;
+    const goingDown = y > lastY + 6;
+    const goingUp = y < lastY - 6;
+    if (goingDown || goingUp) {
+      if (!overContact) whatsappFloat.classList.toggle('is-tucked', goingDown && y > 400);
+      lastY = y;
+    }
+    ticking = false;
+  };
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      ticking = true;
+      window.requestAnimationFrame(onScroll);
+    }
+  }, { passive: true });
 }
