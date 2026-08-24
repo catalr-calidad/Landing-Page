@@ -1847,3 +1847,71 @@ body.nav-open { overflow: hidden; }
   margin-bottom: 3px;
 }
 .about-verify span { font-size: 0.82rem; line-height: 1.45; }
+
+/* ==========================================================================
+   AUDITORÍA v38 — tercera evaluación (3.90/5)
+   ========================================================================== */
+
+/* El titular ahora es la promesa, no la categoría: el evaluador señaló tres
+   veces que "Asesoría en Calidad" solo no le decía si la página era para él.
+   La frase de marca sobrevive como bajada, en el título de la pestaña y en el
+   pie de página. */
+.hero-dark .hero-copy h1 {
+  font-size: clamp(1.8rem, 3.4vw, 2.85rem);
+  line-height: 1.18;
+  letter-spacing: -0.01em;
+  max-width: 17ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+.hero-eyebrow { max-width: 46ch; margin-left: auto; margin-right: auto; }
+
+/* Firma: la página habla en "nosotros" y esta sección en primera persona.
+   Firmarla deja claro de quién es la voz sin afirmar cuánta gente hay detrás. */
+.about-signature {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--navy) !important;
+  margin-top: 4px !important;
+}
+
+/* Los puntos del carrusel medían 4px de alto: imposibles de tocar con el
+   pulgar. La barra sigue siendo fina, pero el área táctil llega a 44px. */
+.carousel-dot {
+  position: relative;
+  padding: 0;
+}
+.carousel-dot::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 44px;
+  transform: translateY(-50%);
+}
+.carousel-dots { gap: 10px; }
+
+/* Compactar los resultados en móvil: es el tercer bloque que explica lo mismo
+   y el evaluador lo leyó como relleno. */
+@media (max-width: 600px) {
+  .outcome { padding: 22px 20px; }
+  .outcome-mark { width: 38px; height: 38px; margin-bottom: 16px; }
+  .outcome-mark svg { width: 19px; height: 19px; }
+  .outcome h3 { font-size: 1rem; margin-bottom: 8px; }
+  .outcome p { font-size: 0.9rem; }
+  .outcomes-grid { gap: 14px; }
+}
+
+/* El titular más largo empujó el botón de WhatsApp fuera de la primera
+   pantalla en celular (881px sobre un alto de 844). El evaluador anterior
+   valoró explícitamente poder verlo sin bajar, así que el hero se cierra
+   hasta recuperarlo. */
+@media (max-width: 600px) {
+  .hero { padding: 56px 0 60px; }
+  .hero-dark .hero-copy h1 { font-size: 1.62rem; margin-bottom: 16px; }
+  .hero-dark .hero-sub { font-size: 1rem; margin-bottom: 24px; }
+  .hero-chips { margin-bottom: 22px; }
+  .hero-eyebrow { margin-bottom: 14px; }
+}
