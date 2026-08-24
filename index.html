@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=19">
+  <link rel="stylesheet" href="styles.css?v=21">
   <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
@@ -239,21 +239,21 @@
       <div class="seal-band-inner">
         <div class="seal-scene" id="seal-scene" aria-hidden="true">
           <div class="seal-tilt">
-            <div class="seal-3d">
-              <span class="seal-ring seal-ring-a"></span>
-              <span class="seal-ring seal-ring-b"></span>
-              <span class="seal-ring seal-ring-c"></span>
-              <span class="seal-ring seal-ring-equator"></span>
-              <span class="seal-dot seal-dot-1"></span>
-              <span class="seal-dot seal-dot-2"></span>
-              <span class="seal-dot seal-dot-3"></span>
+            <div class="medal" id="medal">
+              <!-- script.js injects the .medal-slice extrusion layers here,
+                   between the back and front faces, to give real thickness -->
+              <span class="medal-face medal-back"></span>
+              <span class="medal-face medal-front">
+                <svg viewBox="0 0 120 120" fill="none">
+                  <circle cx="60" cy="60" r="46" stroke="rgba(255,255,255,0.22)" stroke-width="1.5"/>
+                  <path class="medal-check" d="M40 61.5l14 14L82 45"
+                        stroke="#fff" stroke-width="9"
+                        stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
             </div>
           </div>
-          <span class="seal-core">
-            <svg viewBox="0 0 48 48" fill="none">
-              <path d="M15 24.5l6.5 6.5L34 17.5" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </span>
+          <span class="medal-shadow"></span>
         </div>
         <p class="seal-caption">Comprometidos con la calidad en cada detalle</p>
       </div>
@@ -390,6 +390,6 @@
     </svg>
   </a>
 
-  <script src="script.js?v=19"></script>
+  <script src="script.js?v=21"></script>
 </body>
 </html>

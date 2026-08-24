@@ -101,6 +101,27 @@ if (sealScene && !prefersReducedMotion && hasFinePointer) {
   });
 }
 
+// Build the medal's extrusion body: a stack of discs spaced along Z. CSS alone
+// can't extrude a shape, so the thickness you see when it swings is these
+// slices. Shaded darker toward the back so the rim reads as a lit edge.
+const medal = document.getElementById('medal');
+if (medal) {
+  const SLICES = 24;
+  const DEPTH = 15; // must match the ±15px translateZ on .medal-front/.medal-back
+  const frag = document.createDocumentFragment();
+  for (let i = 0; i < SLICES; i++) {
+    const t = i / (SLICES - 1);              // 0 = back, 1 = front
+    const z = -DEPTH + t * (DEPTH * 2);
+    const slice = document.createElement('span');
+    slice.className = 'medal-slice';
+    slice.style.transform = `translateZ(${z.toFixed(2)}px)`;
+    const light = 14 + t * 16;               // 14% → 30% lightness
+    slice.style.background = `hsl(211 55% ${light}%)`;
+    frag.appendChild(slice);
+  }
+  medal.insertBefore(frag, medal.firstChild);
+}
+
 // Pause the seal's continuous 3D rotation while it's off-screen so it isn't
 // burning GPU/battery for something nobody is looking at.
 if (sealScene) {
