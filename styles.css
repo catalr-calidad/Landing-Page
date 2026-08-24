@@ -709,6 +709,22 @@ h1, h2, h3, .logo, .footer-name {
   pointer-events: auto;
 }
 
+/* While the map is horizontal, the end stops sit near the container edges, so
+   a centred tooltip pushes past the viewport (measured 11px of document
+   overflow at 768px). Anchor the first and last ones inward instead. */
+@media (min-width: 701px) {
+  .route-stop:first-child .route-tooltip { left: 0; transform: translate(0, 8px); }
+  .route-stop:last-child .route-tooltip  { left: auto; right: 0; transform: translate(0, 8px); }
+  .route-stop:first-child .route-tooltip::after { left: 34px; }
+  .route-stop:last-child .route-tooltip::after  { left: auto; right: 34px; transform: none; }
+  .route-stop:first-child:hover .route-tooltip,
+  .route-stop:first-child:focus-visible .route-tooltip,
+  .route-stop:first-child.show-tip .route-tooltip,
+  .route-stop:last-child:hover .route-tooltip,
+  .route-stop:last-child:focus-visible .route-tooltip,
+  .route-stop:last-child.show-tip .route-tooltip { transform: translate(0, 0); }
+}
+
 @media (max-width: 700px) {
   .route-map { flex-direction: column; align-items: center; gap: 36px; margin-top: 48px; }
   .route-map::before { display: none; }
@@ -882,149 +898,105 @@ h1, h2, h3, .logo, .footer-name {
   margin: 0;
 }
 
-/* SEAL BAND — back on the light cream ground, with the mark carrying the
-   colour instead of the background. */
+/* SEAL BAND — a restrained trust mark, per the "Minimal & Direct" pattern the
+   skill recommends for consulting: monochrome, no decorative motion, motion
+   only on entry and on hover. */
 .seal-band {
   position: relative;
   overflow: hidden;
-  padding: 110px 0 100px;
+  padding: 104px 0;
   background: var(--bg-cream);
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
 }
 .seal-band-inner {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: auto 1fr;
   align-items: center;
-  gap: 52px;
+  gap: 72px;
 }
 
-/* --- 3D quality check: ring + check as one rigid body doing a full 360 --- */
-.seal-scene {
-  position: relative;
-  width: 280px;
-  height: 280px;
-  perspective: 1000px;
+.emblem-wrap {
+  perspective: 900px;
+  flex: none;
 }
-/* Soft colour wash so the mark isn't floating unanchored on the flat cream */
-.seal-scene::before {
-  content: '';
-  position: absolute;
-  inset: -20%;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(99, 102, 241, 0.17), rgba(8, 145, 178, 0.07) 48%, transparent 70%);
-  filter: blur(14px);
-  pointer-events: none;
-  animation: seal-bloom 6s ease-in-out infinite;
-}
-@keyframes seal-bloom {
-  0%, 100% { opacity: 0.75; transform: scale(0.96); }
-  50%      { opacity: 1;    transform: scale(1.05); }
-}
-
-.seal-tilt {
-  position: absolute;
-  inset: 0;
-  transform-style: preserve-3d;
+.emblem-tilt {
   transform: rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
-  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-/* The whole assembly turns as one piece */
-.holo {
-  position: absolute;
-  inset: 0;
   transform-style: preserve-3d;
-  animation: seal-rotate 14s linear infinite;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
 }
-@keyframes seal-rotate {
-  from { transform: rotateX(16deg) rotateY(0deg); }
-  to   { transform: rotateX(16deg) rotateY(360deg); }
-}
-
-/* Ring and check bodies — script.js stacks layers along Z inside each */
-.ring3d,
-.holo-check {
-  position: absolute;
-  inset: 0;
-  transform-style: preserve-3d;
-}
-.ring-layer,
-.holo-check-svg {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+.emblem {
+  display: block;
+  width: 220px;
+  height: 220px;
   overflow: visible;
-}
-.ring-layer { color: #4338ca; }
-.holo-check-svg { color: #2563eb; }
-.holo-check-svg.is-front {
-  filter: drop-shadow(0 5px 12px rgba(37, 99, 235, 0.38));
+  filter: drop-shadow(0 14px 26px rgba(15, 39, 68, 0.18));
 }
 
-/* Facet wireframe pinned to the front of the check */
-.check-facets {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  overflow: visible;
-  /* must match the check's extrusion depth in script.js */
-  transform: translateZ(16px);
+/* Entry animation: the mark assembles itself once, then rests. */
+.emblem-ring,
+.emblem-inner {
+  stroke-dasharray: 660;
+  stroke-dashoffset: 660;
+  transition: stroke-dashoffset 1.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.check-facets-back { transform: translateZ(-16px) rotateY(180deg); }
-.facet-lines path {
-  stroke: rgba(224, 242, 254, 0.85);
-  stroke-width: 1.4;
-  fill: none;
+.emblem-inner { transition-delay: 0.15s; }
+.emblem-disc {
+  transform-origin: 110px 110px;
+  transform: scale(0.6);
+  opacity: 0;
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.25s,
+              opacity 0.5s ease 0.25s;
 }
-.facet-dots circle {
-  fill: #a5f3fc;
-  stroke: #0891b2;
-  stroke-width: 1.2;
-  animation: facet-twinkle 3.2s ease-in-out infinite;
+.emblem-check {
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  transition: stroke-dashoffset 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.75s;
 }
-.facet-dots circle:nth-child(2n) { animation-delay: 0.9s; }
-.facet-dots circle:nth-child(3n) { animation-delay: 1.7s; }
-@keyframes facet-twinkle {
-  0%, 100% { opacity: 0.55; }
-  50%      { opacity: 1; }
+.emblem-ticks {
+  opacity: 0;
+  transition: opacity 0.6s ease 0.55s;
 }
 
-/* Contact shadow */
-.seal-ground {
-  position: absolute;
-  left: 50%;
-  bottom: -18px;
-  width: 160px;
-  height: 22px;
-  transform: translateX(-50%);
-  border-radius: 50%;
-  background: radial-gradient(ellipse, rgba(15, 39, 68, 0.24), transparent 70%);
-  filter: blur(8px);
-}
+.emblem-wrap.is-revealed .emblem-ring,
+.emblem-wrap.is-revealed .emblem-inner { stroke-dashoffset: 0; }
+.emblem-wrap.is-revealed .emblem-disc { transform: scale(1); opacity: 1; }
+.emblem-wrap.is-revealed .emblem-check { stroke-dashoffset: 0; }
+.emblem-wrap.is-revealed .emblem-ticks { opacity: 1; }
 
-.seal-paused .holo,
-.seal-paused .seal-scene::before,
-.seal-paused .facet-dots circle { animation-play-state: paused; }
+.seal-copy .eyebrow { margin-bottom: 14px; }
+.seal-copy h2 {
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  margin: 0 0 18px;
+  max-width: 15ch;
+}
+.seal-copy p {
+  color: var(--ink-soft);
+  font-size: 1.02rem;
+  margin: 0;
+  max-width: 52ch;
+}
 
 @media (prefers-reduced-motion: reduce) {
-  .holo { animation: none; transform: rotateX(16deg) rotateY(-26deg); }
-  .seal-scene::before { animation: none; }
-  .facet-dots circle { animation: none; opacity: 0.9; }
-  .seal-tilt { transition: none; }
+  .emblem-ring,
+  .emblem-inner,
+  .emblem-check { stroke-dashoffset: 0; transition: none; }
+  .emblem-disc { transform: scale(1); opacity: 1; transition: none; }
+  .emblem-ticks { opacity: 1; transition: none; }
+  .emblem-tilt { transition: none; }
 }
-.seal-caption {
-  font-family: 'Outfit', sans-serif;
-  font-weight: 600;
-  font-size: 1.05rem;
-  color: var(--navy);
-  letter-spacing: 0.03em;
-  text-align: center;
-  margin: 0;
+
+@media (max-width: 860px) {
+  .seal-band-inner {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+    gap: 44px;
+  }
+  .seal-copy h2 { max-width: none; }
+  .seal-copy p { max-width: 60ch; }
+  .emblem { width: 180px; height: 180px; }
 }
 
 /* VISION */
@@ -1300,4 +1272,21 @@ h1, h2, h3, .logo, .footer-name {
   .carousel-arrow { width: 44px; height: 44px; }
   .footer-inner { grid-template-columns: 1fr; gap: 32px; }
   .contact-form-wrap { padding: 26px; }
+}
+
+/* At 375px the header row (logo + CTA + hamburger) overflowed by 8px, so the
+   narrowest phones get tighter gutters and type. */
+@media (max-width: 400px) {
+  .container { padding: 0 14px; }
+  .logo { font-size: 0.84rem; }
+  .nav-cta { padding: 9px 10px; font-size: 0.72rem; }
+  .header-inner { gap: 6px; }
+}
+
+/* Below ~340px the logo, CTA and hamburger genuinely cannot coexist. The
+   header CTA is dropped rather than shrunk to illegibility — the floating
+   WhatsApp button stays on screen, so the action is never lost. */
+@media (max-width: 340px) {
+  .nav-cta { display: none; }
+  .logo { font-size: 0.88rem; }
 }

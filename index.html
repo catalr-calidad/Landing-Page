@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=29">
+  <link rel="stylesheet" href="styles.css?v=33">
   <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
@@ -265,64 +265,37 @@
       </div>
     </section>
 
-    <!-- BANDA EDITORIAL: SELLO DE CALIDAD -->
+    <!-- SELLO DE CALIDAD -->
     <section class="seal-band fade-in">
-      <!--
-        Si más adelante consigues una foto que te guste, puedes reemplazar
-        este bloque por <img> — el diseño de abajo es una alternativa
-        100% en código, sin depender de fotografía externa.
-      -->
-      <div class="seal-band-inner">
-        <div class="seal-scene" id="seal-scene" aria-hidden="true">
-          <div class="seal-tilt">
-            <!-- Ring + check are ONE rigid body: .holo turns a full 360 and
-                 everything inside turns with it. Both parts are extruded by
-                 script.js so the object still has substance when it passes
-                 edge-on, instead of vanishing to a line. -->
-            <div class="holo" id="holo">
-              <div class="ring3d" id="ring3d">
-                <svg class="ring-layer" viewBox="0 0 240 240" fill="none">
-                  <circle cx="120" cy="120" r="112" stroke="currentColor" stroke-width="8"/>
-                </svg>
-              </div>
-
-              <div class="holo-check" id="holo-check">
-                <svg class="holo-check-svg" viewBox="0 0 240 240">
-                  <path d="M64 118 L100 154 L174 68 L196 90 L100 196 L42 136 Z"
-                        fill="currentColor"/>
-                </svg>
-              </div>
-
-              <!-- Facet wireframe + vertex nodes. Present on BOTH faces so the
-                   back half of the rotation is as finished as the front. -->
-              <svg class="check-facets check-facets-back" viewBox="0 0 240 240" fill="none">
-                <g class="facet-lines">
-                  <path d="M64 118 L100 154 L174 68 L196 90 L100 196 L42 136 Z"/>
-                  <path d="M64 118 L100 196M100 154 L196 90M42 136 L100 154M100 154 L100 196M174 68 L100 154"/>
-                </g>
-                <g class="facet-dots">
-                  <circle cx="64" cy="118" r="3.4"/><circle cx="100" cy="154" r="3.8"/>
-                  <circle cx="174" cy="68" r="3.4"/><circle cx="196" cy="90" r="3"/>
-                  <circle cx="100" cy="196" r="3.4"/><circle cx="42" cy="136" r="3"/>
-                </g>
-              </svg>
-              <svg class="check-facets" viewBox="0 0 240 240" fill="none">
-                <g class="facet-lines">
-                  <path d="M64 118 L100 154 L174 68 L196 90 L100 196 L42 136 Z"/>
-                  <path d="M64 118 L100 196M100 154 L196 90M42 136 L100 154M100 154 L100 196M174 68 L100 154"/>
-                  <path d="M64 118 L42 136M100 154 L64 118"/>
-                </g>
-                <g class="facet-dots">
-                  <circle cx="64" cy="118" r="3.4"/><circle cx="100" cy="154" r="3.8"/>
-                  <circle cx="174" cy="68" r="3.4"/><circle cx="196" cy="90" r="3"/>
-                  <circle cx="100" cy="196" r="3.4"/><circle cx="42" cy="136" r="3"/>
-                </g>
-              </svg>
-            </div>
+      <div class="container seal-band-inner">
+        <div class="emblem-wrap" id="emblem-wrap">
+          <div class="emblem-tilt">
+            <svg class="emblem" viewBox="0 0 220 220" fill="none" aria-hidden="true">
+              <!-- Outer hairline ring, drawn on entry -->
+              <circle class="emblem-ring" cx="110" cy="110" r="104"
+                      stroke="var(--navy)" stroke-width="1.5"/>
+              <!-- Tick marks: the machined-bezel detail that reads as a seal -->
+              <g class="emblem-ticks" stroke="var(--slate-light)" stroke-width="2" stroke-linecap="round">
+                <path d="M110 12v9M110 199v9M12 110h9M199 110h9"/>
+                <path d="M40.6 40.6l6.4 6.4M173 173l6.4 6.4M179.4 40.6l-6.4 6.4M47 173l-6.4 6.4"/>
+              </g>
+              <!-- Solid navy disc -->
+              <circle class="emblem-disc" cx="110" cy="110" r="82" fill="var(--navy)"/>
+              <!-- Inner hairline, knocked out of the disc -->
+              <circle class="emblem-inner" cx="110" cy="110" r="70"
+                      stroke="rgba(255,255,255,0.22)" stroke-width="1"/>
+              <!-- The check, stroked on -->
+              <path class="emblem-check" d="M78 111 L100 133 L145 86"
+                    stroke="#fff" stroke-width="9"
+                    stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
           </div>
-          <span class="seal-ground" aria-hidden="true"></span>
         </div>
-        <p class="seal-caption">Comprometidos con la calidad en cada detalle</p>
+        <div class="seal-copy">
+          <span class="eyebrow">Nuestro compromiso</span>
+          <h2>Comprometidos con la calidad en cada detalle</h2>
+          <p>Cada proceso que documentamos, cada formato que entregamos y cada auditoría que preparamos responde al mismo estándar: que tu operación quede en regla y se sostenga en el tiempo.</p>
+        </div>
       </div>
     </section>
 
@@ -458,6 +431,6 @@
     </svg>
   </a>
 
-  <script src="script.js?v=29"></script>
+  <script src="script.js?v=33"></script>
 </body>
 </html>

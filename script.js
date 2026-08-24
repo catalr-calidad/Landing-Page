@@ -80,77 +80,37 @@ if (heroDark && !prefersReducedMotion && hasFinePointer) {
   heroDark.addEventListener('mouseleave', () => heroDark.classList.remove('spotlight-active'));
 }
 
-// 3D seal: tilt toward the cursor. The CSS keyframe spin lives on an inner
-// element so this tilt transform on the wrapper doesn't fight the animation.
-const sealScene = document.getElementById('seal-scene');
-if (sealScene && !prefersReducedMotion && hasFinePointer) {
-  const sealBand = sealScene.closest('.seal-band') || sealScene;
-  sealBand.addEventListener('mousemove', (event) => {
-    const rect = sealScene.getBoundingClientRect();
-    const cx = rect.left + rect.width / 2;
-    const cy = rect.top + rect.height / 2;
-    const dx = (event.clientX - cx) / rect.width;
-    const dy = (event.clientY - cy) / rect.height;
+// Emblem: tilt toward the cursor. This is the only motion it has at rest —
+// the skill's guidance is explicit that infinite animation belongs on loaders,
+// not decorative marks, so the seal reveals once and then responds to hover.
+const emblemWrap = document.getElementById('emblem-wrap');
+if (emblemWrap && !prefersReducedMotion && hasFinePointer) {
+  const band = emblemWrap.closest('.seal-band') || emblemWrap;
+  const tiltTarget = emblemWrap.querySelector('.emblem-tilt');
+  band.addEventListener('mousemove', (event) => {
+    const rect = emblemWrap.getBoundingClientRect();
+    const dx = (event.clientX - (rect.left + rect.width / 2)) / rect.width;
+    const dy = (event.clientY - (rect.top + rect.height / 2)) / rect.height;
     const clamp = (v) => Math.max(-1, Math.min(1, v));
-    sealScene.style.setProperty('--tilt-y', `${clamp(dx) * 22}deg`);
-    sealScene.style.setProperty('--tilt-x', `${clamp(-dy) * 18}deg`);
+    tiltTarget.style.setProperty('--tilt-y', `${clamp(dx) * 16}deg`);
+    tiltTarget.style.setProperty('--tilt-x', `${clamp(-dy) * 13}deg`);
   });
-  sealBand.addEventListener('mouseleave', () => {
-    sealScene.style.setProperty('--tilt-y', '0deg');
-    sealScene.style.setProperty('--tilt-x', '0deg');
+  band.addEventListener('mouseleave', () => {
+    tiltTarget.style.setProperty('--tilt-y', '0deg');
+    tiltTarget.style.setProperty('--tilt-x', '0deg');
   });
 }
 
-// Extrude the ring and the check. CSS can't extrude a path, so the depth you
-// see as the assembly turns is these stacked copies. Because the whole thing
-// completes a full 360, both parts need real thickness — otherwise each one
-// collapses to a line every half turn.
-function extrude(hostId, selector, opts) {
-  const host = document.getElementById(hostId);
-  if (!host) return;
-  const base = host.querySelector(selector);
-  const frag = document.createDocumentFragment();
-  for (let i = 0; i < opts.layers - 1; i++) {
-    const t = i / (opts.layers - 1);        // 0 = back, ~1 = just behind front
-    const layer = base.cloneNode(true);
-    layer.style.transform = `translateZ(${(-opts.depth + t * 2 * opts.depth).toFixed(2)}px)`;
-    // Shading is symmetric: both faces are light and the middle of the stack
-    // is dark. That way the body looks equally finished through the whole 360
-    // instead of turning into a dull silhouette on the back half. On this light
-    // ground the mid-stack must be DARKER than the faces, or the extrusion
-    // washes out into the cream instead of reading as depth.
-    const edge = Math.abs(2 * t - 1);        // 1 at both faces, 0 mid-stack
-    const light = opts.lightMid + edge * (opts.lightFace - opts.lightMid);
-    const hue = opts.hueMid + edge * (opts.hueFace - opts.hueMid);
-    layer.style.color = `hsl(${hue.toFixed(0)} ${opts.sat}% ${light.toFixed(0)}%)`;
-    frag.appendChild(layer);
-  }
-  host.insertBefore(frag, base);
-  base.classList.add('is-front');
-  base.style.transform = `translateZ(${opts.depth}px)`;
-}
-
-// Layer counts are set so the Z spacing stays near ~1px. Any sparser and the
-// stack reads as separate slices ("comb" banding) when the body turns edge-on
-// rather than as one solid volume.
-extrude('ring3d', '.ring-layer', {
-  layers: 26, depth: 15, sat: 70,
-  hueFace: 232, hueMid: 258, lightFace: 46, lightMid: 24
-});
-extrude('holo-check', '.holo-check-svg', {
-  layers: 30, depth: 16, sat: 72,
-  hueFace: 220, hueMid: 252, lightFace: 44, lightMid: 22
-});
-
-// Pause the seal's continuous 3D rotation while it's off-screen so it isn't
-// burning GPU/battery for something nobody is looking at.
-if (sealScene) {
-  const sealVisibility = new IntersectionObserver((entries) => {
+// Emblem draws itself in once when it first enters view, then rests.
+if (emblemWrap) {
+  const emblemObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
-      sealScene.classList.toggle('seal-paused', !entry.isIntersecting);
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('is-revealed');
+      emblemObserver.unobserve(entry.target);
     });
-  }, { threshold: 0 });
-  sealVisibility.observe(sealScene);
+  }, { threshold: 0.25 });
+  emblemObserver.observe(emblemWrap);
 }
 
 // Hero decorative orbs: slow scroll drift (decorative layers only — never the
