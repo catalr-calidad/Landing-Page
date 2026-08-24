@@ -343,14 +343,24 @@ const contactSection = document.getElementById('contacto');
 if (whatsappFloat) {
   let overContact = false;
 
-  if (contactSection) {
+  // Sections whose own controls sit in the bottom-right corner, where the
+  // floating button would land on top of them: the contact form's CTA and the
+  // FAQ's accordion chevrons.
+  const blockedSections = ['contacto', 'preguntas']
+    .map((id) => document.getElementById(id))
+    .filter(Boolean);
+
+  if (blockedSections.length) {
+    const visible = new Set();
     const floatObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        overContact = entry.isIntersecting;
-        whatsappFloat.classList.toggle('is-tucked', overContact);
+        if (entry.isIntersecting) visible.add(entry.target);
+        else visible.delete(entry.target);
       });
+      overContact = visible.size > 0;
+      whatsappFloat.classList.toggle('is-tucked', overContact);
     }, { threshold: 0 });
-    floatObserver.observe(contactSection);
+    blockedSections.forEach((s) => floatObserver.observe(s));
   }
 
   // Reading down the page is when the button is in the way, so it steps aside

@@ -1915,3 +1915,45 @@ body.nav-open { overflow: hidden; }
   .hero-chips { margin-bottom: 22px; }
   .hero-eyebrow { margin-bottom: 14px; }
 }
+
+/* ==========================================================================
+   AUDITORÍA v39 — cuarta evaluación (3.80/5)
+   ========================================================================== */
+
+/* "Sobre Catalina" en celular: el recuadro quedaba pegado a la izquierda con
+   un hueco blanco al lado y se leía como un error de maquetación. Retrato y
+   datos de contacto pasan a compartir la fila. */
+@media (max-width: 900px) {
+  .about-side {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    gap: 20px;
+    align-items: center;
+  }
+  .about-portrait { max-width: 150px; }
+  .about-direct { margin-top: 0; }
+}
+@media (max-width: 480px) {
+  .about-side { grid-template-columns: 112px 1fr; gap: 16px; }
+  .about-portrait { max-width: 112px; }
+  .about-monogram { font-size: 1.9rem; }
+  .about-verify { padding: 10px 12px; }
+}
+
+/* En escritorio el globito de la ruta se abre hacia arriba y se montaba sobre
+   el título "De dónde partes, a dónde llegas". Más aire encima de la fila. */
+@media (min-width: 701px) {
+  .route-map { margin-top: 104px; }
+}
+
+/* El titular de marca ocupaba tres renglones en celular y hacía dudar si la
+   página era para odontólogos o para un spa. */
+@media (max-width: 600px) {
+  .hero-eyebrow { font-size: 0.62rem; letter-spacing: 0.08em; max-width: 34ch; }
+}
+
+/* El handle de Instagram no parte, y como hijo de grid empujaba la columna
+   fuera de la pantalla en celular. */
+.about-direct { min-width: 0; }
+.about-verify > span { min-width: 0; }
+.about-verify strong { word-break: break-word; }
